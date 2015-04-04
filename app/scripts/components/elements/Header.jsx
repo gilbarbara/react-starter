@@ -1,4 +1,5 @@
-var React = require('react');
+var React = require('react/addons'),
+	NPMPackage = require('../../../../package.json');
 
 var Header = React.createClass({
 
@@ -6,7 +7,7 @@ var Header = React.createClass({
 		return (
 			<header className="app__header">
 				<div className="app__container">
-					<h1>React-Boilerplate</h1>
+					<h1>{NPMPackage.title}</h1>
 				</div>
 			</header>
 		);
