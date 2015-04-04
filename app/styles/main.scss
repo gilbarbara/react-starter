@@ -1,0 +1,45 @@
+// Base
+@import 'base/variables';
+@import 'base/bootstrap';
+@import 'base/bootstrap-theme';
+@import 'base/utils';
+
+// Elements
+@import 'elements/loader';
+@import 'elements/header';
+
+// Components
+@import 'components/app';
+@import 'components/home';
+
+.browsehappy {
+  background: #ccc;
+  color: #000;
+  margin: 0.2em 0;
+  padding: 0.2em 0;
+}
+
+body {
+  background-color: #f7f7f7;
+  font-family: Lato, sans-serif;
+  min-height: 100%;
+}
+
+#react {
+  min-height: 100vh;
+}
+
+.not-found {
+  position: relative;
+  text-align: center;
+
+  h1 {
+    @extend %vertical-align;
+    font-size: 128px;
+    margin: 0;
+
+    @include sm {
+      font-size: 256px;
+    }
+  }
+}

@@ -1,0 +1,6 @@
+.tmp
+.sass-cache
+bower_components
+dist
+node_modules
+formsy-react

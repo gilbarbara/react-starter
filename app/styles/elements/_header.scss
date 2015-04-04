@@ -1,0 +1,18 @@
+.app__header {
+  height: $header-height;
+  padding: $grid-gutter-width 0;
+  position: relative;
+
+  &:before {
+    background: linear-gradient(90deg, $brand-red, 70%, lighten($brand-red, 30%));
+    bottom: 3px;
+    content: '';
+    height: 2px;
+    position: absolute;
+    width: 100%;
+  }
+
+  h1 {
+    margin: 0;
+  }
+}

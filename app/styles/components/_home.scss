@@ -1,0 +1,8 @@
+
+  .item {
+    background: linear-gradient(125deg, $brand-red, 70%, lighten($brand-red, 12%));
+    color: lighten($brand-red, 25%);
+    font-size: 3rem;
+    padding: 30px;
+
+  }
