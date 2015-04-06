@@ -75,7 +75,7 @@
     "no-underscore-dangle": 0,
     "no-unused-expressions": 1,
     "no-unused-vars": [
-      0,
+      1,
       {
         "vars": "all",
         "args": "after-used"
@@ -103,7 +103,7 @@
     "react/prop-types": 1,
     "react/react-in-jsx-scope": 1,
     "react/self-closing-comp": 1,
-    "react/wrap-multilines": 2,
+    "react/wrap-multilines": 1,
     "semi": 1,
     "space-after-keywords": 1,
     "space-before-blocks": 1,

@@ -8,7 +8,6 @@ var gulp                  = require('gulp'),
 	lrload                = require('livereactload'),
 	merge                 = require('merge-stream'),
 	path                  = require('path'),
-	reload                = browserSync.reload,
 	runSequence           = require('run-sequence'),
 	source                = require('vinyl-source-stream'),
 	watchify              = require('watchify'),
@@ -110,13 +109,7 @@ gulp.task('scripts', function (cb) {
 gulp.task('lint', function () {
 	return gulp.src('app/scripts/**/*')
 		.pipe($.eslint({
-			plugins: ['react'],
-			rules: {
-				'react/jsx-no-undef': 0,
-				'react/jsx-uses-react': 1,
-				'react/jsx-uses-vars': 1
-			},
-			useEslintrc: true
+			plugins: ['react']
 		}))
 		.pipe($.eslint.format())
 		.pipe($.eslint.failOnError());
@@ -234,7 +227,7 @@ gulp.task('serve', ['assets', 'scripts'], function () {
 			gulp.start('styles');
 		}
 	});
-	gulp.watch('bower.json', ['wiredep', reload]);
+	gulp.watch('bower.json', ['wiredep', browserSync.reload]);
 });
 
 gulp.task('build', ['clean'], function () {
