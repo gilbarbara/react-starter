@@ -24,10 +24,12 @@ var gulp                  = require('gulp'),
 		'bb >= 10'
 	];
 
-var isProduction = process.env.NODE_ENV === 'production',
+var isProduction = function () {
+		return process.env.NODE_ENV === 'production';
+	},
 	config       = {
 		dest: function () {
-			return (isProduction ? 'dist' : '.tmp');
+			return (isProduction() ? 'dist' : '.tmp');
 		}
 	};
 
@@ -101,7 +103,7 @@ gulp.task('styles', function () {
 
 gulp.task('scripts', function (cb) {
 	return watchifyTask({
-		watch: !isProduction,
+		watch: !isProduction(),
 		cb: cb
 	});
 });
@@ -158,30 +160,26 @@ gulp.task('fonts', function () {
 });
 
 gulp.task('extras', function () {
-	var vendor, extras;
+	var vendor, files;
 
-	if (isProduction) {
-		vendor = gulp.src('bower_components/modernizr/modernizr.js')
-			.pipe($.uglify())
-			.pipe(gulp.dest(config.dest() + '/scripts/vendor'))
-			.pipe($.size({
-				title: 'Vendor'
-			}));
-	}
+	vendor = gulp.src('bower_components/modernizr/modernizr.js')
+		.pipe($.uglify())
+		.pipe(gulp.dest(config.dest() + '/scripts/vendor'))
+		.pipe($.size({
+			title: 'Extras:vendor'
+		}));
 
-	extras = gulp.src([
+	files = gulp.src([
 		'app/*.*',
 		'!app/*.html',
 		'node_modules/apache-server-configs/dist/.htaccess'
-	], {
-		dot: true
-	})
+	], { dot: true })
 		.pipe(gulp.dest(config.dest()))
 		.pipe($.size({
-			title: 'Extras'
+			title: 'Extras:files'
 		}));
 
-	return (vendor ? merge(vendor, extras) : extras);
+	return merge(vendor, files);
 });
 
 gulp.task('clean', del.bind(null, [config.dest() + '/*']));
@@ -204,7 +202,7 @@ gulp.task('wiredep', function () {
 });
 
 gulp.task('assets', function (cb) {
-	runSequence('styles', ['wiredep', 'media', 'fonts', 'extras'], cb);
+	runSequence('styles', ['wiredep', 'media', 'fonts'], cb);
 });
 
 gulp.task('clean', del.bind(null, [config.dest()]));
@@ -232,7 +230,7 @@ gulp.task('serve', ['assets', 'scripts'], function () {
 
 gulp.task('build', ['clean'], function () {
 	process.env.NODE_ENV = 'production';
-	runSequence('lint', 'scripts', ['assets', 'html'], 'sizer');
+	runSequence('lint', 'scripts', ['assets', 'extras', 'html'], 'sizer');
 });
 
 gulp.task('default', ['serve']);

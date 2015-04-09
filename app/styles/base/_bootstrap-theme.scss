@@ -12,7 +12,6 @@
 
 .row-flex > [class*='col-'],
 .container-flex > [class*='col-'] {
-
   margin: -0.2px; // hack adjust for wrapping */
 }
 
@@ -33,4 +32,3 @@
   display: flex;
   flex: 2;
 }
-
