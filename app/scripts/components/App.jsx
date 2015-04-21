@@ -5,12 +5,15 @@ var React  = require('react'),
 var RouteHandler = Router.RouteHandler;
 
 var App = React.createClass({
+
 	render: function () {
 		return (
 			<div className="app">
 				<Header/>
 				<main className="app__content">
-					<RouteHandler/>
+					<div className="app__container">
+						<RouteHandler/>
+					</div>
 				</main>
 			</div>
 		);

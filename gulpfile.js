@@ -24,6 +24,8 @@ var gulp                  = require('gulp'),
 		'bb >= 10'
 	];
 
+var middleware = historyApiFallback({});
+
 var isProduction = function () {
 		return process.env.NODE_ENV === 'production';
 	},
@@ -217,7 +219,7 @@ gulp.task('serve', ['assets', 'scripts'], function () {
 			routes: {
 				'/bower_components': 'bower_components'
 			},
-			middleware: [historyApiFallback]
+			middleware: [middleware]
 		}
 	});
 	gulp.watch('app/styles/**/*.scss', function (e) {

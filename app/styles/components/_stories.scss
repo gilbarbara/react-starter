@@ -1,0 +1,26 @@
+.stories {
+  display: flex;
+  flex-wrap: wrap;
+
+  &__item {
+    display: flex;
+    min-height: 180px;
+    padding: 20px;
+    text-align: center;
+    width: 50%;
+
+    > a {
+      background-color: $brand-primary;
+      color: #fff;
+      flex-grow: 1;
+      min-height: 180px;
+      font-size: 22px;
+      padding: 50px;
+      text-decoration: none;
+      
+      &:hover {
+        background-color: lighten($brand-primary, 2%);
+      }
+    }
+  }
+}

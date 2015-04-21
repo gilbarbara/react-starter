@@ -48,9 +48,7 @@ var Home = React.createClass({
 			html = (<Loader/>);
 		}
 		return (
-			<div key="Home" className="home">
-				<div className="app__container">{html}</div>
-			</div>
+			<div key="Home" className="home">{html}</div>
 		);
 	}
 

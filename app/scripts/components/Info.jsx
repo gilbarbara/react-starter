@@ -4,7 +4,7 @@ var Info = React.createClass({
 
 	render: function () {
 		return (
-			<div>Info</div>
+			<div className="Info">Info</div>
 		);
 	}
 
