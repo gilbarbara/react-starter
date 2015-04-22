@@ -3,24 +3,71 @@
   flex-wrap: wrap;
 
   &__item {
+    animation: fadein 0.8s ease-in-out 0.1s 1 forwards;
     display: flex;
     min-height: 180px;
+    opacity: 0;
+    overflow: hidden;
     padding: 20px;
+    position: relative;
     text-align: center;
     width: 50%;
 
-    > a {
+    > div  {
       background-color: $brand-primary;
-      color: #fff;
-      flex-grow: 1;
+      display: table;
       min-height: 180px;
-      font-size: 22px;
-      padding: 50px;
-      text-decoration: none;
-      
-      &:hover {
-        background-color: lighten($brand-primary, 2%);
+      width: 100%;
+
+      > a {
+        animation: fadein 0.5s ease-in-out 0.6s 1 forwards;
+        color: #fff;
+        display: table-cell;
+        font-size: 26px;
+        opacity: 0;
+        padding: 0 30px;
+        text-decoration: none;
+        transition: all 0.3s ease-in-out;
+        vertical-align: middle;
+        width: 100%;
+
+        &:hover {
+          background-color: darken($brand-primary, 4%);
+        }
       }
     }
+
+    > span {
+      animation: appear 0.6s ease-in-out 0.8s 1 forwards;
+      background-color: #fff;
+      color: $brand-primary;
+      border-radius: 50%;
+      font-weight: 700;
+      line-height: 35px;
+      position: absolute;
+      top: 35px;
+      transform: scale(0);
+      right: 35px;
+      width: 35px;
+    }
+  }
+}
+
+@keyframes appear {
+  0% {
+    transform: scale(0);
+
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

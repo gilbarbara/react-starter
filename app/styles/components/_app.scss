@@ -28,4 +28,9 @@
       padding-right: ($grid-gutter-width * 2);
     }
   }
+
+  &__actions {
+    margin: $grid-gutter-width 0;
+    text-align: center;
+  }
 }

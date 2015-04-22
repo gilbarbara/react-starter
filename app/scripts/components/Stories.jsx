@@ -11,10 +11,13 @@ var RouteHandler = Router.RouteHandler;
 
 var Stories = React.createClass({
 
+
 	getInitialState: function () {
 		return {
 			ready: false,
 			error: undefined,
+			start: undefined,
+			max: 20,
 			storiesIds: [],
 			stories: []
 		};
@@ -29,6 +32,12 @@ var Stories = React.createClass({
 		HNStore.removeChangeListener(this._handleHNChange);
 	},
 
+	componentDidUpdate: function (prevProps, prevState) {
+		if (prevState.start !== this.state.start) {
+			this.loadStories();
+		}
+	},
+
 	_handleHNChange: function (action) {
 		var response,
 			state = {
@@ -38,12 +47,9 @@ var Stories = React.createClass({
 		if (action === ActionTypes.FETCH_STORIES) {
 			response = HNStore.fetchStoriesResponse();
 			if (response.status === XHR.SUCCESS) {
+				window.storiesIds = response.data;
 				state.storiesIds = response.data;
-
-				// moveto a function
-				state.storiesIds.slice(0, 20).forEach(function (d) {
-					AppActions.fetchStory(d);
-				})
+				state.start = 0;
 			}
 			else {
 				state.error = response.data.message;
@@ -64,28 +70,49 @@ var Stories = React.createClass({
 		this.setState(state);
 	},
 
+	loadStories: function () {
+		this.state.storiesIds.slice(this.state.start, (this.state.start + this.state.max)).forEach(function (d) {
+			AppActions.fetchStory(d);
+		})
+	},
+
+	_onClickLoadMore: function (e) {
+		e.preventDefault();
+		this.setState({
+			start: this.state.start + this.state.max
+		})
+	},
+
+
 	render: function () {
-		var html,
+		var output  = {},
 			stories = [];
 
 		if (this.state.ready) {
 			_.map(this.state.stories, function (d) {
+				console.log(d);
 				stories.push(<div key={d.id} className="stories__item">
-					<a href={d.url} target="_blank">{d.title}</a>
+					<div><a href={d.url} target="_blank">{d.title}</a></div>
+					<span className="score">{d.score}</span>
 				</div>);
 			});
-			html = { stories };
-
+			output.html = { stories };
+			output.actions = (
+				<div className="app__actions">
+					<a href="#" className="load-more btn btn-primary btn-lg" onClick={this._onClickLoadMore}> Load More</a>
+				</div>
+			);
 		}
 		else {
-			html = <Loader/>;
+			output.html = <Loader/>;
 		}
 
 		return (
 			<div key="Stories">
-				<h1>Hacker News</h1>
+				<h2>Hacker News</h2>
 
-				<div className="stories">{html}</div>
+				<div className="stories">{output.html}</div>
+				{output.actions}
 			</div>
 		);
 	}

@@ -207,6 +207,15 @@ gulp.task('assets', function (cb) {
 	runSequence('styles', ['wiredep', 'media', 'fonts'], cb);
 });
 
+gulp.task('mocha', function () {
+	return gulp.src('app/scripts/**/__tests__/*.js', {
+		read: false
+	})
+		.pipe($.mocha({
+			reporter: 'nyan'
+		}));
+});
+
 gulp.task('clean', del.bind(null, [config.dest()]));
 
 gulp.task('serve', ['assets', 'scripts'], function () {
