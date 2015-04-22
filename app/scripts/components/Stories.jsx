@@ -1,5 +1,4 @@
 var React       = require('react'),
-	Router      = require('react-router'),
 	_           = require('lodash'),
 	AppActions  = require('../actions/AppActions'),
 	ActionTypes = require('../constants/AppConstants').ActionTypes,
@@ -7,10 +6,7 @@ var React       = require('react'),
 	HNStore     = require('../stores/HNStore.js'),
 	Loader      = require('./elements/Loader');
 
-var RouteHandler = Router.RouteHandler;
-
 var Stories = React.createClass({
-
 
 	getInitialState: function () {
 		return {
@@ -73,16 +69,15 @@ var Stories = React.createClass({
 	loadStories: function () {
 		this.state.storiesIds.slice(this.state.start, (this.state.start + this.state.max)).forEach(function (d) {
 			AppActions.fetchStory(d);
-		})
+		});
 	},
 
 	_onClickLoadMore: function (e) {
 		e.preventDefault();
 		this.setState({
 			start: this.state.start + this.state.max
-		})
+		});
 	},
-
 
 	render: function () {
 		var output  = {},

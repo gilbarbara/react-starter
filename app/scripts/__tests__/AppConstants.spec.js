@@ -1,7 +1,3 @@
-var chai   = require('chai'),
-	expect = chai.expect,
-	should = chai.should();
-
 describe('Contants', function () {
 	var AppConstants = require('../constants/AppConstants');
 	var ActionTypes = AppConstants.ActionTypes;

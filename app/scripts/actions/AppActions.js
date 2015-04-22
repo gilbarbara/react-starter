@@ -28,6 +28,7 @@ module.exports = {
 	/**
 	 * Fetch Story
 	 * @constructor
+	 * @param {String} id - Story ID
 	 */
 	fetchStory: function (id) {
 		HNApi.fetchOne(id);

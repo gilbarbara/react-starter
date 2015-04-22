@@ -2,7 +2,6 @@ var chai            = require('chai'),
 	sinon           = require('sinon'),
 	sinonChai       = require('sinon-chai'),
 	SandboxedModule = require('sandboxed-module'),
-	expect          = chai.expect,
 	_               = require('lodash');
 
 chai.should();
@@ -24,7 +23,7 @@ function createFakeAppActionsRequires (options) {
 describe('AppActions', function () {
 
 	describe('fetchStories', function () {
-		var AppActions, fakeDispatcher, expected, HNApi;
+		var AppActions, fakeDispatcher, HNApi;
 
 		beforeEach(function () {
 
@@ -81,7 +80,7 @@ describe('AppActions', function () {
 	});
 
 	describe('fetchStory', function () {
-		var AppActions, fakeDispatcher, expected, HNApi;
+		var AppActions, fakeDispatcher, HNApi;
 
 		beforeEach(function () {
 

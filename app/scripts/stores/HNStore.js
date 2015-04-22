@@ -57,4 +57,3 @@ var HNStore = assign(new Store(), EventEmitter.prototype, {
 
 HNStore.dispatchToken = AppDispatcher.register(HNStore.process.bind(HNStore));
 module.exports = HNStore;
-
