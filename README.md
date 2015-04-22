@@ -1,6 +1,11 @@
 react-starter
 ===
 
-Starter kit for `react` with `react-router` and `react-bootstrap`
+React starter kit with `flux`, `react-router` and `react-bootstrap`
 
-It uses gulp with `browserify` with `reactify` and `livereactload` for "hot" reloading.
+
+It uses `browserify` with `reactify` (es6, jsx) and `livereactload` (for "hot" reloading) transforms.
+
+## Development
+- Run `npm install && bower install`
+- Run `gulp` to start up
