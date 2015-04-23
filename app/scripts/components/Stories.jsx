@@ -6,7 +6,8 @@ var React       = require('react'),
 	HNStore     = require('../stores/HNStore.js'),
 	Loader      = require('./elements/Loader');
 
-var Stories = React.createClass({
+var StoriesApp = React.createClass({
+
 
 	getInitialState: function () {
 		return {
@@ -85,7 +86,6 @@ var Stories = React.createClass({
 
 		if (this.state.ready) {
 			_.map(this.state.stories, function (d) {
-				console.log(d);
 				stories.push(<div key={d.id} className="stories__item">
 					<div><a href={d.url} target="_blank">{d.title}</a></div>
 					<span className="score">{d.score}</span>
@@ -103,8 +103,8 @@ var Stories = React.createClass({
 		}
 
 		return (
-			<div key="Stories">
-				<h2>Hacker News</h2>
+			<div key="Stories" className="stories-app">
+				<h1>Hacker News</h1>
 
 				<div className="stories">{output.html}</div>
 				{output.actions}
@@ -114,4 +114,4 @@ var Stories = React.createClass({
 
 });
 
-module.exports = Stories;
+module.exports = StoriesApp;

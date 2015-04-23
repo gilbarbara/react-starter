@@ -1,5 +1,8 @@
-var React = require('react/addons'),
+var React      = require('react/addons'),
+	Bootstrap  = require('react-bootstrap'),
 	NPMPackage = require('../../../../package.json');
+
+var { Nav, NavItem, Glyphicon } = Bootstrap;
 
 var Header = React.createClass({
 
@@ -7,7 +10,13 @@ var Header = React.createClass({
 		return (
 			<header className="app__header">
 				<div className="app__container">
-					<h1>{NPMPackage.title}</h1>
+					<h3>{NPMPackage.title}</h3>
+					<div className="menu clearfix">
+						<Nav navbar>
+							<NavItem eventKey={1} href='#'><Glyphicon glyph='dashboard'/>Home</NavItem>
+							<NavItem active eventKey={2} href='#'><Glyphicon glyph='fire'/>Hacker News</NavItem>
+						</Nav>
+					</div>
 				</div>
 			</header>
 		);

@@ -1,6 +1,5 @@
-describe('Contants', function () {
-	var AppConstants = require('../constants/AppConstants');
-	var ActionTypes = AppConstants.ActionTypes;
+describe('Constants', function () {
+	var ActionTypes = require('../constants/AppConstants').ActionTypes;
 
 	it('should have "FETCH_STORIES" attr', function () {
 		ActionTypes.FETCH_STORIES.should.be.equal('FETCH_STORIES');
@@ -17,5 +16,5 @@ describe('Contants', function () {
 	it('should have "NAVIGATE" attr', function () {
 		ActionTypes.NAVIGATE.should.be.equal('NAVIGATE');
 	});
-
 });
+

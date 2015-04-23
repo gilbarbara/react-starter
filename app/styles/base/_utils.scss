@@ -166,7 +166,22 @@ $position: left) {
   background-repeat: repeat-y;
 }
 
+
+/**
+ * Jagged Border
+ *
+ * $location - [top, bottom, left, right]
+ * $type - [fill, border]
+ * $side - [inside, outside]
+ *
+ * @param {Object} data - xhr
+ */
+
 @mixin jagged($color: 000, $size: 16, $location: bottom, $type: fill, $side: outside, $animate: false) {
+  @if str-index(#{$color}, '#') > 0 {
+    $color: str-slice(#{$color}, 2);
+  }
+
   $width: $size;
   $height: $width / 2;
   $scale: $width / 16;

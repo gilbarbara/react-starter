@@ -5,9 +5,7 @@ var assign         = require('react/lib/Object.assign'),
 	Store         = require('../utils/Store');
 
 // Internal object
-var HNData = {
-	stories: {}
-};
+var HNData = {};
 
 var HNStore = assign(new Store(), EventEmitter.prototype, {
 	process: function (payload) {

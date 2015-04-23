@@ -1,4 +1,3 @@
-/*
 var chai            = require('chai'),
 	sinon           = require('sinon'),
 	sinonChai       = require('sinon-chai'),
@@ -43,7 +42,7 @@ describe('HNStore', function () {
 
 			it('should create a fetchStories props with action data in state', function () {
 				HNStore.process(fakePayload);
-				expect(HNStore.fetchStories).to.be.deep.equal({
+				expect(HNStore.fetchStoriesResponse()).to.be.deep.equal({
 					type: 'FETCH_STORIES',
 					status: 'success'
 				});
@@ -65,18 +64,10 @@ describe('HNStore', function () {
 
 				HNStore = SandboxedModule.require('../stores/HNStore', {
 					requires: {
-						'../api/UserApi': {
-							getAccessToken: sinon.spy()
-						},
 						'../utils/Store': function () {
 							this.emitChange = function () {
 							};
 						},
-						'../utils/State': SandboxedModule.require('../utils/State', {
-							requires: {
-								'../utils/Storage': fakeStorage
-							}
-						}),
 						'../constants/AppConstants': require('../constants/AppConstants')
 					}
 				});
@@ -90,7 +81,7 @@ describe('HNStore', function () {
 
 			it('should create a fetchTransactions props with action data in state', function () {
 				HNStore.process(fakePayload);
-				expect(fakeStorage.walletState.fetchTransactions).to.be.deep.equal({
+				expect(HNStore.fetchStoryResponse()).to.be.deep.equal({
 					type: 'FETCH_STORY',
 					status: 'success'
 				});
@@ -101,4 +92,3 @@ describe('HNStore', function () {
 
 	});
 });
-*/

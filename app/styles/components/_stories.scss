@@ -1,3 +1,10 @@
+.stories-app {
+  h1 {
+    color: $brand-red;
+    text-align: center;
+  }
+}
+
 .stories {
   display: flex;
   flex-wrap: wrap;
@@ -40,14 +47,14 @@
     > span {
       animation: appear 0.6s ease-in-out 0.8s 1 forwards;
       background-color: #fff;
-      color: $brand-primary;
       border-radius: 50%;
+      bottom: 35px;
+      color: $brand-primary;
       font-weight: 700;
       line-height: 35px;
       position: absolute;
-      top: 35px;
-      transform: scale(0);
       right: 35px;
+      transform: scale(0);
       width: 35px;
     }
   }

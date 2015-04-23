@@ -1,18 +1,44 @@
 .app__header {
+  @include jagged($brand-red, 12, bottom, border);
   height: $header-height;
   padding: $grid-gutter-width 0;
   position: relative;
 
-  &:before {
+/*  &:before {
     background: linear-gradient(90deg, $brand-red, 70%, lighten($brand-red, 30%));
     bottom: 3px;
     content: '';
     height: 2px;
     position: absolute;
     width: 100%;
+  }*/
+
+  h3 {
+    margin: 0;
   }
 
-  h1 {
-    margin: 0;
+  .menu {
+    margin-top: 2rem;
+
+    .navbar-nav > li {
+      &.active a {
+        color: $brand-red;
+        font-weight: bold;
+      }
+
+      > a {
+        color: $text-color;
+        padding: 0 1.5rem 0 0;
+
+        &:hover,
+        &:focus {
+          background-color: transparent;
+        }
+        
+        .glyphicon {
+          margin-right: 5px;
+        }
+      }
+    }
   }
 }
