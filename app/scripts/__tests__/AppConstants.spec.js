@@ -17,4 +17,3 @@ describe('Constants', function () {
 		ActionTypes.NAVIGATE.should.be.equal('NAVIGATE');
 	});
 });
-

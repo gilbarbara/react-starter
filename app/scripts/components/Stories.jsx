@@ -8,7 +8,6 @@ var React       = require('react'),
 
 var StoriesApp = React.createClass({
 
-
 	getInitialState: function () {
 		return {
 			ready: false,

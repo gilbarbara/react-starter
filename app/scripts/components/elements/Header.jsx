@@ -13,8 +13,8 @@ var Header = React.createClass({
 					<h3>{NPMPackage.title}</h3>
 					<div className="menu clearfix">
 						<Nav navbar>
-							<NavItem eventKey={1} href='#'><Glyphicon glyph='dashboard'/>Home</NavItem>
-							<NavItem active eventKey={2} href='#'><Glyphicon glyph='fire'/>Hacker News</NavItem>
+							<NavItem eventKey={1} href="#"><Glyphicon glyph="dashboard"/>Home</NavItem>
+							<NavItem active eventKey={2} href="#"><Glyphicon glyph="fire"/>Hacker News</NavItem>
 						</Nav>
 					</div>
 				</div>

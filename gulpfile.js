@@ -155,7 +155,7 @@ gulp.task('fonts', function () {
 	return gulp.src(bowerFiles.concat('app/fonts/**/*'))
 		.pipe($.filter('**/*.{eot,svg,ttf,woff,woff2}'))
 		.pipe($.flatten())
-		.pipe(gulp.dest(config.dest() + '/fonts'))
+		.pipe(gulp.dest(config.dest() + '/styles/fonts'))
 		.pipe($.size({
 			title: 'Fonts'
 		}));
