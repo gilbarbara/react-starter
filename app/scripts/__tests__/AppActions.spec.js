@@ -22,6 +22,35 @@ function createFakeAppActionsRequires (options) {
 
 describe('AppActions', function () {
 
+	describe('goTo', function () {
+        var AppActions, fakeDispatcher, expected;
+
+        beforeEach(function () {
+            expected = {
+                type: 'NAVIGATE',
+                destination: 'destination',
+                params: 'params',
+                query: 'query'
+            };
+
+            fakeDispatcher = {
+                handleViewAction: sinon.spy()
+            };
+
+            AppActions = SandboxedModule.require('../actions/AppActions', {
+                requires: createFakeAppActionsRequires({
+                    '../dispatcher/AppDispatcher': fakeDispatcher
+                })
+            });
+
+        });
+
+        it('should call AppDispatcher.handleViewAction with NAVIGATE action', function () {
+            AppActions.goTo('destination', 'params', 'query');
+            fakeDispatcher.handleViewAction.should.be.calledWith(expected);
+        });
+    });
+
 	describe('fetchStories', function () {
 		var AppActions, fakeDispatcher, HNApi;
 

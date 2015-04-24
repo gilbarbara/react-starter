@@ -1,9 +1,12 @@
-var React  = require('react'),
-	Router = require('react-router'),
-	routes = require('./routes');
+var React     = require('react'),
+	AppRouter = require('./utils/Router'),
+	routes    = require('./routes');
+
+AppRouter.create(routes);
+var route = AppRouter.getRouter();
 
 document.addEventListener('DOMContentLoaded', function () {
-	Router.run(routes, Router.HistoryLocation, function (Handler) {
+	route.run(function (Handler) {
 		React.render(<Handler/>, document.getElementById('react'));
 	});
 });

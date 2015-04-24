@@ -6,6 +6,10 @@ var RouteHandler = Router.RouteHandler;
 
 var App = React.createClass({
 
+	contextTypes: {
+		router: React.PropTypes.func
+	},
+
 	render: function () {
 		return (
 			<div className="app">

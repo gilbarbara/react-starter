@@ -4,6 +4,22 @@ var AppDispatcher = require('../dispatcher/AppDispatcher'),
 
 module.exports = {
 	/**
+	* Change route path
+	* @constructor
+	* @param {String} destination - Route's Name
+	* @param {Object} [params] - Route's Params
+	* @param {String} [query] - Route's Query
+	*/
+	goTo: function (destination, params, query) {
+		AppDispatcher.handleViewAction({
+			type: ActionTypes.NAVIGATE,
+			destination: destination,
+			params: params,
+			query: query
+		});
+	},
+
+	/**
 	 * Fetch Stories' IDs
 	 * @constructor
 	 */

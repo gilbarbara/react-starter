@@ -28,7 +28,7 @@
     "eslint": "^0.19.0",
     "eslint-plugin-react": "^2.2.0",
     "gulp": "^3.8.11",
-    "gulp-autoprefixer": "^2.1.0",
+    "gulp-autoprefixer": "^2.2.0",
     "gulp-cache": "^0.2.8",
     "gulp-changed": "^1.2.1",
     "gulp-cssmin": "^0.1.6",
@@ -51,7 +51,7 @@
     "main-bower-files": "^2.7.0",
     "merge-stream": "^0.1.7",
     "reactify": "^1.1.0",
-    "run-sequence": "^1.0.2",
+    "run-sequence": "^1.1.0",
     "sandboxed-module": "^2.0.0",
     "sinon": "^1.14.1",
     "sinon-chai": "^2.7.0",
@@ -80,6 +80,7 @@
   },
   "scripts": {
     "start": "gulp serve",
+    "build": "gulp build",
     "test": "gulp mocha"
   },
   "engines": {
