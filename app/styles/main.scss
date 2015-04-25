@@ -31,11 +31,9 @@ body {
 }
 
 .not-found {
-  position: relative;
   text-align: center;
 
   h1 {
-    @extend %vertical-align;
     font-size: 128px;
     margin: 0;
 

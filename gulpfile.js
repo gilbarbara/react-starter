@@ -218,10 +218,22 @@ gulp.task('mocha', function () {
 
 gulp.task('clean', del.bind(null, [config.dest()]));
 
+gulp.task('gh-pages', function () {
+	var filter = $.filter('**/app.js');
+
+	return gulp.src('dist/**/*')
+		.pipe(filter)
+		.pipe($.replace(new RegExp('{path:"/",handler:d}', 'g'), '{path:"/react-starter",handler:d}'))
+		.pipe(filter.restore())
+		.pipe($.ghPages({
+			force: true
+		}));
+});
+
 gulp.task('serve', ['assets', 'scripts'], function () {
 	browserSync({
 		notify: true,
-		logPrefix: 'amadurou',
+		logPrefix: 'react-starter',
 		files: ['app/*.html', '.tmp/styles/**/*.css', 'app/images/**/*'], //'.tmp/scripts/**/*.js',
 		server: {
 			baseDir: [config.dest(), 'app'],
@@ -242,6 +254,10 @@ gulp.task('serve', ['assets', 'scripts'], function () {
 gulp.task('build', ['clean'], function () {
 	process.env.NODE_ENV = 'production';
 	runSequence('lint', 'scripts', ['assets', 'extras', 'html'], 'sizer');
+});
+
+gulp.task('deploy', function () {
+	runSequence('build', 'gh-pages');
 });
 
 gulp.task('default', ['serve']);

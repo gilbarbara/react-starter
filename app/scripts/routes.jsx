@@ -9,7 +9,7 @@ var React    = require('react/addons'),
 var { Route, DefaultRoute, NotFoundRoute } = Router;
 
 module.exports = (
-	<Route handler={App}>
+	<Route path="/" handler={App}>
 		<Route name="home" handler={Home}/>
 		<Route name="info" handler={Info}/>
 		<Route name="stories" handler={Stories}/>
