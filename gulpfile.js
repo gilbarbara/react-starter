@@ -1,17 +1,17 @@
-var gulp                  = require('gulp'),
-	$                     = require('gulp-load-plugins')(),
-	bowerFiles            = require('main-bower-files')(),
-	browserify            = require('browserify'),
-	browserSync           = require('browser-sync'),
-	del                   = require('del'),
-	historyApiFallback    = require('connect-history-api-fallback'),
-	lrload                = require('livereactload'),
-	merge                 = require('merge-stream'),
-	path                  = require('path'),
-	runSequence           = require('run-sequence'),
-	source                = require('vinyl-source-stream'),
-	watchify              = require('watchify'),
-	wiredep               = require('wiredep').stream,
+var gulp = require('gulp'),
+	$ = require('gulp-load-plugins')(),
+	bowerFiles = require('main-bower-files')(),
+	browserify = require('browserify'),
+	browserSync = require('browser-sync'),
+	del = require('del'),
+	historyApiFallback = require('connect-history-api-fallback'),
+	lrload = require('livereactload'),
+	merge = require('merge-stream'),
+	path = require('path'),
+	runSequence = require('run-sequence'),
+	source = require('vinyl-source-stream'),
+	watchify = require('watchify'),
+	wiredep = require('wiredep').stream,
 	AUTOPREFIXER_BROWSERS = [
 		'ie >= 10',
 		'ie_mob >= 10',
@@ -29,7 +29,7 @@ var middleware = historyApiFallback({});
 var isProduction = function () {
 		return process.env.NODE_ENV === 'production';
 	},
-	config       = {
+	config = {
 		dest: function () {
 			return (isProduction() ? 'dist' : '.tmp');
 		}
@@ -37,7 +37,7 @@ var isProduction = function () {
 
 // Functions
 
-function watchifyTask (options) {
+function watchifyTask(options) {
 	var bundler, rebundle, iteration = 0;
 	bundler = browserify({
 		entries: path.join(__dirname, '/app/scripts/main.js'),
@@ -47,13 +47,13 @@ function watchifyTask (options) {
 		debug: options.watch,
 		packageCache: {}, // required for watchify
 		fullPaths: options.watch, // required to be true only for watchify
-		transform: options.watch ? [['livereactload', { global: true }], 'reactify'] : ['reactify'], //
+		transform: options.watch ? [['livereactload', {global: true}], 'reactify'] : ['reactify'], //
 		extensions: ['.jsx']
 	});
 
 	if (options.watch) {
 		bundler = watchify(bundler);
-		lrload.listen();
+		lrload.monitor(config.dest() + '/scripts/app.js', {displayNotification: true})
 	}
 
 	rebundle = function () {
@@ -175,7 +175,7 @@ gulp.task('extras', function () {
 		'app/*.*',
 		'!app/*.html',
 		'node_modules/apache-server-configs/dist/.htaccess'
-	], { dot: true })
+	], {dot: true})
 		.pipe(gulp.dest(config.dest()))
 		.pipe($.size({
 			title: 'Extras:files'
@@ -196,7 +196,7 @@ gulp.task('sizer', function () {
 
 gulp.task('wiredep', function () {
 	return gulp.src('app/index.html')
-		.pipe(wiredep({ exclude: ['bootstrap-sass', 'footable'] }))
+		.pipe(wiredep({exclude: ['bootstrap-sass', 'footable']}))
 		.pipe(gulp.dest('app'))
 		.pipe($.size({
 			title: 'wiredep'
@@ -223,7 +223,7 @@ gulp.task('gh-pages', function () {
 
 	return gulp.src('dist/**/*')
 		.pipe(filter)
-		.pipe($.replace(new RegExp('{path:"/",handler:d}', 'g'), '{path:"/react-starter",handler:d}'))
+		.pipe($.replace(new RegExp('{path:"/",handler:d}', 'g'), '{path:"/react-starter/",handler:d}'))
 		.pipe(filter.restore())
 		.pipe($.ghPages({
 			force: true

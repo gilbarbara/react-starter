@@ -1,4 +1,4 @@
-var React       = require('react'),
+var React       = require('react/addons'),
 	_           = require('lodash'),
 	AppActions  = require('../actions/AppActions'),
 	ActionTypes = require('../constants/AppConstants').ActionTypes,
@@ -7,6 +7,7 @@ var React       = require('react'),
 	Loader      = require('./elements/Loader');
 
 var StoriesApp = React.createClass({
+	mixins: [React.addons.PureRenderMixin],
 
 	getInitialState: function () {
 		return {
