@@ -251,13 +251,13 @@ gulp.task('serve', ['assets', 'scripts'], function () {
 	gulp.watch('bower.json', ['wiredep', browserSync.reload]);
 });
 
-gulp.task('build', ['clean'], function () {
+gulp.task('build', ['clean'], function (cb) {
 	process.env.NODE_ENV = 'production';
-	runSequence('lint', 'scripts', ['assets', 'extras', 'html'], 'sizer');
+	runSequence('lint', 'scripts', ['assets', 'extras', 'html'], 'sizer', cb);
 });
 
-gulp.task('deploy', function () {
-	runSequence('build', 'gh-pages');
+gulp.task('deploy', function (cb) {
+	runSequence('build', 'gh-pages', cb);
 });
 
 gulp.task('default', ['serve']);
