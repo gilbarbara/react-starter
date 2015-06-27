@@ -52,7 +52,7 @@ function watchifyTask (options) {
 				['babelify', { ignore: /bower_components/ }],
 				['livereactload', { global: true }]
 			]
-			: ['babelify', { ignore: /bower_components/ }], //
+			: [['babelify', { ignore: /bower_components/ }]],
 		extensions: ['.jsx']
 	});
 
