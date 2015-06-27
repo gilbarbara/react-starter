@@ -226,7 +226,7 @@ gulp.task('clean', del.bind(null, [config.dest()]));
 gulp.task('gh-pages', function () {
 	var filter = $.filter('**/app.js');
 
-	return gulp.src('dist/**/*')
+	return gulp.src(['dist/**/*', 'README.md'])
 		.pipe(filter)
 		.pipe($.replace(new RegExp('{path:"/",handler:d}', 'g'), '{path:"/react-starter/",handler:d}'))
 		.pipe(filter.restore())

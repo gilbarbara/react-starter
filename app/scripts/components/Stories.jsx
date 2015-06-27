@@ -100,8 +100,7 @@ var StoriesApp = React.createClass({
 
 			output.actions = (
 				<div className="app__actions">
-					<a href="#" className="load-more btn btn-primary btn-lg"
-					   onClick={this._onClickLoadMore}> Load More</a>
+					<a href="#" className="load-more btn btn-primary btn-lg" onClick={this._onClickLoadMore}> Load More</a>
 				</div>
 			);
 		}
