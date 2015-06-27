@@ -10,7 +10,7 @@ var App = React.createClass({
 		router: React.PropTypes.func
 	},
 
-	render: function () {
+	render () {
 		return (
 			<div className="app">
 				<Header/>

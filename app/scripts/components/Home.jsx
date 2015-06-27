@@ -6,14 +6,14 @@ var React     = require('react/addons'),
 var Home = React.createClass({
 	mixins: [React.addons.PureRenderMixin],
 
-	getInitialState: function () {
+	getInitialState () {
 		return {
 			ready: false,
 			items: []
 		};
 	},
 
-	componentDidMount: function () {
+	componentDidMount () {
 		setTimeout(function () {
 			this.setState({
 				ready: true,
@@ -22,14 +22,14 @@ var Home = React.createClass({
 		}.bind(this), 1000);
 	},
 
-	render: function () {
+	render () {
 		var html;
 
 		if (this.state.ready) {
 			html = (
 				<Bootstrap.Row className="row-flex-wrap row-flex">
 					{
-						this.state.items.map(function (item, i) {
+						this.state.items.map((item, i) => {
 							var key = Object.keys(item);
 							return (
 								<Bootstrap.Col key={i} xs={12} sm={6} md={4} lg={3}>

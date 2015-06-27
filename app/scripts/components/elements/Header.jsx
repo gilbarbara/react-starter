@@ -13,17 +13,17 @@ var Header = React.createClass({
 		router: React.PropTypes.func
 	},
 
-	getInitialState: function () {
+	getInitialState () {
 		return {
 			currentPath: null
 		};
 	},
 
-	componentWillMount: function () {
+	componentWillMount () {
 		BrowserStore.setCurrentPath(this.context.router.getCurrentPath());
 	},
 
-	_onClickLink: function (e) {
+	_onClickLink (e) {
 		e.preventDefault();
 		AppActions.goTo(e.currentTarget.dataset.destination);
 
@@ -32,11 +32,11 @@ var Header = React.createClass({
 		});
 	},
 
-	render: function () {
+	render () {
 		return (
 			<header className="app__header">
 				<div className="app__container">
-					<h3>{NPMPackage.title}</h3>
+					<h1>{NPMPackage.title}</h1>
 
 					<div className="menu clearfix">
 						<Nav navbar>

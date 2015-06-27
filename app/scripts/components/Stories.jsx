@@ -9,7 +9,7 @@ var React       = require('react/addons'),
 var StoriesApp = React.createClass({
 	mixins: [React.addons.PureRenderMixin],
 
-	getInitialState: function () {
+	getInitialState () {
 		return {
 			ready: false,
 			error: undefined,
@@ -20,31 +20,28 @@ var StoriesApp = React.createClass({
 		};
 	},
 
-	componentDidMount: function () {
+	componentDidMount () {
 		HNStore.addChangeListener(this._handleHNChange);
 		AppActions.fetchStories();
 	},
 
-	componentWillUnmount: function () {
+	componentWillUnmount () {
 		HNStore.removeChangeListener(this._handleHNChange);
 	},
 
-	componentDidUpdate: function (prevProps, prevState) {
+	componentDidUpdate (prevProps, prevState) {
 		if (prevState.start !== this.state.start) {
 			this.loadStories();
 		}
 	},
 
-	_handleHNChange: function (action) {
+	_handleHNChange (action) {
 		var response,
-			state = {
-				stories: this.state.stories
-			};
+			state = {};
 
 		if (action === ActionTypes.FETCH_STORIES) {
 			response = HNStore.fetchStoriesResponse();
 			if (response.status === XHR.SUCCESS) {
-				window.storiesIds = response.data;
 				state.storiesIds = response.data;
 				state.start = 0;
 			}
@@ -56,45 +53,55 @@ var StoriesApp = React.createClass({
 			response = HNStore.fetchStoryResponse();
 
 			if (response.status === XHR.SUCCESS) {
-				state.ready = true;
-				state.stories.push(response.data);
+				state = React.addons.update(this.state, {
+						stories: { $push: [response.data] }
+					}
+				);
 			}
 			else {
 				state.error = response.data.message;
 			}
 		}
 
-		this.setState(state);
+		this.setState(state, () => {
+			if (!this.state.ready && this.state.stories.length === (this.state.start + this.state.max)) {
+				this.setState({
+					ready: true
+				});
+			}
+		});
 	},
 
-	loadStories: function () {
-		this.state.storiesIds.slice(this.state.start, (this.state.start + this.state.max)).forEach(function (d) {
+	loadStories () {
+		this.state.storiesIds.slice(this.state.start, (this.state.start + this.state.max)).forEach((d) => {
 			AppActions.fetchStory(d);
 		});
 	},
 
-	_onClickLoadMore: function (e) {
+	_onClickLoadMore (e) {
 		e.preventDefault();
 		this.setState({
 			start: this.state.start + this.state.max
 		});
 	},
 
-	render: function () {
-		var output  = {},
-			stories = [];
+	render () {
+		var output = {};
 
 		if (this.state.ready) {
-			_.map(this.state.stories, function (d) {
-				stories.push(<div key={d.id} className="stories__item">
-					<div><a href={d.url} target="_blank">{d.title}</a></div>
-					<span className="score">{d.score}</span>
-				</div>);
+			output.html = this.state.stories.map((d) => {
+				return (
+					<div key={d.id} className="stories__item">
+						<div><a href={d.url} target="_blank">{d.title}</a></div>
+						<span className="score">{d.score}</span>
+					</div>
+				);
 			});
-			output.html = { stories };
+
 			output.actions = (
 				<div className="app__actions">
-					<a href="#" className="load-more btn btn-primary btn-lg" onClick={this._onClickLoadMore}> Load More</a>
+					<a href="#" className="load-more btn btn-primary btn-lg"
+					   onClick={this._onClickLoadMore}> Load More</a>
 				</div>
 			);
 		}

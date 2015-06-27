@@ -1,7 +1,7 @@
 var React = require('react');
 
 var Loader = React.createClass({
-	render: function () {
+	render () {
 		return (
 			<div className="loader">
 				<svg className="loader__svg">
