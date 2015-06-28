@@ -1,7 +1,0 @@
-{
-  "name": "react-starter",
-  "dependencies": {
-    "bootstrap-sass": "^3",
-    "modernizr": "^2.8"
-  }
-}
