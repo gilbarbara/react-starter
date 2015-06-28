@@ -92,7 +92,7 @@ var StoriesApp = React.createClass({
 			output.html = this.state.stories.map((d) => {
 				return (
 					<div key={d.id} className="stories__item">
-						<div><a href={d.url} target="_blank">{d.title}</a></div>
+						<a href={d.url} target="_blank">{d.title}</a>
 						<span className="score">{d.score}</span>
 					</div>
 				);

@@ -1,9 +1,8 @@
 .app__header {
   @include jagged($brand-red, 12, bottom, border);
-//  height: $header-height;
+  //  height: $header-height;
   padding: $grid-gutter-width 0;
   position: relative;
-
 
   h1 {
     margin: 0;
@@ -12,23 +11,29 @@
   .menu {
     margin-top: 2rem;
 
-    .navbar-nav > li {
-      &.active a {
-        color: $brand-red;
-        font-weight: bold;
-      }
+    .navbar-nav {
+      margin: 0;
 
-      > a {
-        color: $text-color;
-        padding: 0 1.5rem 0 0;
+      > li {
+        display: inline-block;
 
-        &:hover,
-        &:focus {
-          background-color: transparent;
+        &.active a {
+          color: $brand-red;
+          font-weight: bold;
         }
-        
-        .glyphicon {
-          margin-right: 5px;
+
+        > a {
+          color: $text-color;
+          padding: 0 1.5rem 0 0;
+
+          &:hover,
+          &:focus {
+            background-color: transparent;
+          }
+
+          .glyphicon {
+            margin-right: 5px;
+          }
         }
       }
     }
