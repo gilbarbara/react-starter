@@ -1,8 +1,4 @@
-var React      = require('react/addons'),
-	Bootstrap  = require('react-bootstrap'),
-	NPMPackage = require('../../../../package.json');
-
-var { Nav, NavItem, Glyphicon } = Bootstrap;
+var React      = require('react/addons');
 
 var Footer = React.createClass({
 	mixins: [React.addons.PureRenderMixin],
@@ -20,9 +16,10 @@ var Footer = React.createClass({
 					<ul className="tech list-unstyled">
 						<li><a href="http://facebook.github.io/react/" target="_blank"><img src="http://gilbarbara.github.io/logos/react.svg" width="96"/></a></li>
 						<li><a href="https://facebook.github.io/flux/" target="_blank"><img src="http://gilbarbara.github.io/logos/flux.svg" width="96"/></a></li>
-						<li><a href="https://babeljs.io/" target="_blank"><img src="http://gilbarbara.github.io/logos/babel.svg" width="96"/></a></li>
 						<li><a href="http://gulpjs.com/" target="_blank"><img src="http://gilbarbara.github.io/logos/gulp.svg" width="64"/></a></li>
 						<li><a href="http://browserify.org/" target="_blank"><img src="http://gilbarbara.github.io/logos/browserify-icon.svg" width="96"/></a></li>
+						<li><a href="https://babeljs.io/" target="_blank"><img src="http://gilbarbara.github.io/logos/babel.svg" width="96"/></a></li>
+						<li><a href="http://mochajs.org/" target="_blank"><img src="http://gilbarbara.github.io/logos/mocha.svg" width="64"/></a></li>
 					</ul>
 				</div>
 			</footer>
