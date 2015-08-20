@@ -1,6 +1,5 @@
 var gulp                  = require('gulp'),
 	$                     = require('gulp-load-plugins')(),
-	bowerFiles            = require('main-bower-files')(),
 	browserify            = require('browserify'),
 	browserSync           = require('browser-sync'),
 	del                   = require('del'),
@@ -58,7 +57,7 @@ function watchifyTask (options) {
 
 	if (options.watch) {
 		bundler = watchify(bundler);
-		lrload.monitor(config.dest() + '/scripts/app.js', { displayNotification: true })
+		lrload.monitor(config.dest() + '/scripts/app.js', { displayNotification: true });
 	}
 
 	rebundle = function () {
@@ -91,11 +90,12 @@ gulp.task('styles', function () {
 		.pipe($.changed('styles', {
 			extension: '.scss'
 		}))
-		.pipe($.sass({
-			includePaths: ['bower_components'],
-			precision: 10,
-			onError: console.error.bind(console, 'Sass error:')
-		}))
+		.pipe($.plumber())
+		.pipe($.sass.sync({
+			includePaths: ['bower_components/'],
+			precision: 10
+		}).on('error', $.sass.logError))
+		.pipe($.plumber.stop())
 		.pipe($.autoprefixer({
 			browsers: AUTOPREFIXER_BROWSERS
 		}))
@@ -157,8 +157,7 @@ gulp.task('media', function () {
 });
 
 gulp.task('fonts', function () {
-	return gulp.src(bowerFiles.concat('app/fonts/**/*'))
-		.pipe($.filter('**/*.{eot,svg,ttf,woff,woff2}'))
+	return gulp.src('bower_components/fontawesome/fonts/*.{eot,svg,ttf,woff,woff2}')
 		.pipe($.flatten())
 		.pipe(gulp.dest(config.dest() + '/styles/fonts'))
 		.pipe($.size({
@@ -199,17 +198,8 @@ gulp.task('sizer', function () {
 		}));
 });
 
-gulp.task('wiredep', function () {
-	return gulp.src('app/index.html')
-		.pipe(wiredep({ exclude: ['bootstrap-sass', 'footable'] }))
-		.pipe(gulp.dest('app'))
-		.pipe($.size({
-			title: 'wiredep'
-		}));
-});
-
 gulp.task('assets', function (cb) {
-	runSequence('styles', ['wiredep', 'media', 'fonts'], cb);
+	runSequence('styles', ['media', 'fonts'], cb);
 });
 
 gulp.task('mocha', function () {

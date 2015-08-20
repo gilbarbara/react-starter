@@ -4,7 +4,7 @@ var React        = require('react/addons'),
 	BrowserStore = require('../../stores/BrowserStore'),
 	NPMPackage   = require('../../../../package.json');
 
-var { Nav, NavItem, Glyphicon } = Bootstrap;
+var { Nav, NavItem } = Bootstrap;
 
 var Header = React.createClass({
 	mixins: [React.addons.PureRenderMixin],
@@ -40,10 +40,9 @@ var Header = React.createClass({
 
 					<div className="menu clearfix">
 						<Nav navbar>
-							<NavItem active={BrowserStore.getCurrentPath() === '/home'} eventKey={1} href="#" onClick={this._onClickLink} data-destination="/home"><Glyphicon
-								glyph="dashboard"/>Home</NavItem>
+							<NavItem active={BrowserStore.getCurrentPath() === '/home'} eventKey={1} href="#" onClick={this._onClickLink} data-destination="/home"><span className="fa fa-home"/>Home</NavItem>
 							<NavItem active={['/', '/stories'].indexOf(BrowserStore.getCurrentPath()) > -1 } eventKey={2} href="#" onClick={this._onClickLink}
-									 data-destination="/stories"><Glyphicon glyph="fire"/>Hacker News</NavItem>
+									 data-destination="/stories"><span className="fa fa-fire"/>Hacker News</NavItem>
 						</Nav>
 					</div>
 				</div>

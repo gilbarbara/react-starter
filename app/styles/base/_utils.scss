@@ -26,37 +26,37 @@
 @mixin media-query($media-query) {
 
   @if $media-query == xs-only {
-    @media only screen and (max-width: $screen-xs - 1) {
+    @media only screen and (max-width: breakpoint-max('xs')) {
       @content;
     }
   }
 
   @if $media-query == sm {
-    @media only screen and (min-width: $screen-xs) {
+    @media only screen and (min-width: breakpoint-min('sm')) {
       @content;
     }
   }
 
   @if $media-query == sm-only {
-    @media only screen and (max-width: $screen-sm - 1) {
+    @media only screen and (max-width: breakpoint-max('md')) {
       @content;
     }
   }
 
   @if $media-query == md {
-    @media only screen and (min-width: $screen-sm) {
+    @media only screen and (min-width: breakpoint-min('md')) {
       @content;
     }
   }
 
   @if $media-query == lg {
-    @media only screen and (min-width: $screen-md) {
+    @media only screen and (min-width: breakpoint-min('lg')) {
       @content;
     }
   }
 
   @if $media-query == xl {
-    @media only screen and (min-width: $screen-lg) {
+    @media only screen and (min-width: breakpoint-min('xl')) {
       @content;
     }
   }

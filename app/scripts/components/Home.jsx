@@ -27,7 +27,7 @@ var Home = React.createClass({
 
 		if (this.state.ready) {
 			html = (
-				<Bootstrap.Row className="row-flex-wrap row-flex">
+				<Bootstrap.Row>
 					{
 						this.state.items.map((item, i) => {
 							var key = Object.keys(item);

@@ -23,7 +23,7 @@
         }
 
         > a {
-          color: $text-color;
+          color: $body-color;
           padding: 0 1.5rem 0 0;
 
           &:hover,
@@ -31,7 +31,7 @@
             background-color: transparent;
           }
 
-          .glyphicon {
+          .fa {
             margin-right: 5px;
           }
         }
