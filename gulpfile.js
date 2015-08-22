@@ -10,7 +10,6 @@ var gulp                  = require('gulp'),
 	runSequence           = require('run-sequence'),
 	source                = require('vinyl-source-stream'),
 	watchify              = require('watchify'),
-	wiredep               = require('wiredep').stream,
 	AUTOPREFIXER_BROWSERS = [
 		'ie >= 9',
 		'ie_mob >= 10',
@@ -243,7 +242,6 @@ gulp.task('serve', ['assets', 'scripts'], function () {
 			gulp.start('styles');
 		}
 	});
-	gulp.watch('bower.json', ['wiredep', browserSync.reload]);
 });
 
 gulp.task('build', ['clean'], function (cb) {
