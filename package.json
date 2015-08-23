@@ -9,6 +9,7 @@
     "url": "https://github.com/gilbarbara/react-starter"
   },
   "bugs": "https://github.com/gilbarbara/react-starter/issues",
+  "license": "MIT",
   "dependencies": {
     "flux": "^2.1",
     "jquery": "^2.1",

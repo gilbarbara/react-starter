@@ -1,7 +1,7 @@
 var gulp                  = require('gulp'),
 	$                     = require('gulp-load-plugins')(),
 	browserify            = require('browserify'),
-	browserSync           = require('browser-sync'),
+	browserSync           = require('browser-sync').create(),
 	del                   = require('del'),
 	historyApiFallback    = require('connect-history-api-fallback'),
 	lrload                = require('livereactload'),
@@ -102,6 +102,7 @@ gulp.task('styles', function () {
 			browsers: ['last 2 versions']
 		}))
 		.pipe(gulp.dest(config.dest() + '/styles'))
+		.pipe(browserSync.stream())
 		.pipe($.size({
 			title: 'Styles'
 		}));
@@ -225,10 +226,9 @@ gulp.task('gh-pages', function () {
 });
 
 gulp.task('serve', ['assets', 'scripts'], function () {
-	browserSync({
+	browserSync.init({
 		notify: true,
 		logPrefix: 'react-starter',
-		files: ['app/*.html', '.tmp/styles/**/*.css', 'app/images/**/*'], //'.tmp/scripts/**/*.js',
 		server: {
 			baseDir: [config.dest(), 'app'],
 			routes: {
@@ -242,6 +242,7 @@ gulp.task('serve', ['assets', 'scripts'], function () {
 			gulp.start('styles');
 		}
 	});
+	gulp.watch(['app/*.html', '.tmp/styles/**/*.css', 'app/images/**/*']).on('change', browserSync.reload);
 });
 
 gulp.task('build', ['clean'], function (cb) {
