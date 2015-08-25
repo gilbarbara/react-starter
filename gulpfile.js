@@ -36,7 +36,7 @@ var isProduction = function () {
 // Functions
 
 function watchifyTask (options) {
-	var bundler, rebundle, iteration = 0;
+	var bundler, rebundle, tap, iteration = 0;
 	bundler = browserify({
 		entries: path.join(__dirname, '/app/scripts/main.js'),
 		basedir: __dirname,
@@ -59,6 +59,13 @@ function watchifyTask (options) {
 		lrload.monitor(config.dest() + '/scripts/app.js', { displayNotification: true });
 	}
 
+	tap = function () {
+		if (iteration === 0 && options.cb) {
+			options.cb();
+		}
+		iteration++;
+	};
+
 	rebundle = function () {
 		var stream = bundler.bundle();
 
@@ -72,12 +79,7 @@ function watchifyTask (options) {
 			.pipe($.if(!options.watch, $.streamify($.uglify())))
 			.pipe(gulp.dest(config.dest() + '/scripts'))
 			.pipe($.if(options.watch, lrload.gulpnotify()))
-			.pipe($.tap(function () {
-				if (iteration === 0 && options.cb) {
-					options.cb();
-				}
-				iteration++;
-			}));
+			.pipe($.tap(tap));
 	};
 
 	bundler.on('update', rebundle);
