@@ -1,9 +1,12 @@
 ---
-languages:
-  Ruby: false
-  JavaScript: true
-  PHP: false
-  Python: false
 engines:
   eslint:
     enabled: true
+  scss-lint:
+    enabled: true
+ratings:
+  paths:
+  - "**.js"
+  - "**.scss"
+exclude_paths:
+- node_modules/**/*
