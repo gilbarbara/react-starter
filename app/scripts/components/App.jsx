@@ -1,10 +1,7 @@
 var React    = require('react'),
-	ReactDOM = require('react-dom'),
 	Router   = require('react-router'),
 	Header   = require('./elements/Header'),
 	Footer   = require('./elements/Footer');
-
-var RouteHandler = Router.RouteHandler;
 
 var App = React.createClass({
 
@@ -29,7 +26,6 @@ var App = React.createClass({
 			</div>
 		);
 	}
-
 });
 
 module.exports = App;

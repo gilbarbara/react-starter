@@ -15,7 +15,7 @@
  *
  */
 
-"use strict";
+'use strict';
 
 /**
  * Constructs an enumeration with keys equal to their value.
@@ -33,9 +33,9 @@
  *   Output: {key1: key1, key2: key2}
  *
  * @param {object} obj
- * @return {object}
+ * @returns {object}
  */
-var keyMirror = function(obj) {
+var keyMirror = function (obj) {
 	var ret = {};
 	var key;
 	if (!(obj instanceof Object && !Array.isArray(obj))) {

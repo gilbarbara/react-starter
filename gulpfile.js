@@ -4,7 +4,7 @@ var gulp                  = require('gulp'),
 	browserSync           = require('browser-sync').create(),
 	del                   = require('del'),
 	historyApiFallback    = require('connect-history-api-fallback'),
-	lrload                = require('livereactload'),
+	//lrload                = require('livereactload'),
 	merge                 = require('merge-stream'),
 	path                  = require('path'),
 	runSequence           = require('run-sequence'),
@@ -45,8 +45,8 @@ function watchifyTask (options) {
 		debug: options.watch,
 		packageCache: {}, // required for watchify
 		fullPaths: options.watch, // required to be true only for watchify
-		transform: [['babelify', { ignore: /bower_components/ }]],
-		//plugin: isProduction() ? [] : [lrload],    // no additional configuration is needed
+		transform: [['babelify', { ignore: /bower_components/ }], ['envify', {}] ],
+		//plugin: options.watch ? [lrload] : [],    // no additional configuration is needed
 		extensions: ['.jsx']
 	});
 
@@ -238,7 +238,7 @@ gulp.task('serve', ['assets', 'scripts'], function () {
 			gulp.start('styles');
 		}
 	});
-	gulp.watch(['app/*.html', '.tmp/styles/**/*.css', 'app/images/**/*']).on('change', browserSync.reload);
+	gulp.watch(['app/*.html', '.tmp/styles/**/*.css', '.tmp/scripts/app.js', 'app/images/**/*']).on('change', browserSync.reload);
 });
 
 gulp.task('build', ['clean'], function (cb) {

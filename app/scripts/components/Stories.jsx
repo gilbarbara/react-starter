@@ -1,6 +1,6 @@
 var React           = require('react'),
 	PureRenderMixin = require('react-addons-pure-render-mixin'),
-	ReactUpdate     = require('react-addons-update'),
+	reactUpdate     = require('react-addons-update'),
 	_               = require('lodash'),
 	AppActions      = require('../actions/AppActions'),
 	ActionTypes     = require('../constants/AppConstants').ActionTypes,
@@ -55,7 +55,7 @@ var StoriesApp = React.createClass({
 			response = HNStore.fetchStoryResponse();
 
 			if (response.status === XHR.SUCCESS) {
-				state = ReactUpdate(this.state, {
+				state = reactUpdate(this.state, {
 						stories: { $push: [response.data] }
 					}
 				);
@@ -102,8 +102,7 @@ var StoriesApp = React.createClass({
 
 			output.actions = (
 				<div className="app__actions">
-					<a href="#"
-					   className="load-more btn btn-primary btn-lg"
+					<a href="#" className="load-more btn btn-primary btn-lg"
 					   onClick={this._onClickLoadMore}> Load More</a>
 				</div>
 			);

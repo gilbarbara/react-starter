@@ -1,6 +1,5 @@
 var React           = require('react'),
 	PureRenderMixin = require('react-addons-pure-render-mixin'),
-	Bootstrap       = require('react-bootstrap'),
 	config          = require('../config'),
 	Loader          = require('./elements/Loader');
 
@@ -28,21 +27,21 @@ var Home = React.createClass({
 
 		if (this.state.ready) {
 			html = (
-				<Bootstrap.Row>
+				<div className="row">
 					{
 						this.state.items.map((item, i) => {
 							var key = Object.keys(item);
 							return (
-							<Bootstrap.Col key={i} xs={12} sm={6} md={4} lg={3}>
+							<div key={i} className="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 								<div className="item">
 									<h3>{key}</h3>
 									{item[key]}
 								</div>
-							</Bootstrap.Col>
+							</div>
 								);
 							})
 						}
-				</Bootstrap.Row>
+				</div>
 			);
 		}
 		else {

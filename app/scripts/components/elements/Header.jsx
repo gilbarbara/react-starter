@@ -1,11 +1,9 @@
 var React           = require('react'),
 	PureRenderMixin = require('react-addons-pure-render-mixin'),
-	Bootstrap       = require('react-bootstrap'),
 	AppActions      = require('../../actions/AppActions'),
 	BrowserStore    = require('../../stores/BrowserStore'),
 	NPMPackage      = require('../../../../package.json');
 
-var { Nav, NavItem } = Bootstrap;
 
 var Header = React.createClass({
 	mixins: [PureRenderMixin],
@@ -40,18 +38,21 @@ var Header = React.createClass({
 					<h1>{NPMPackage.title}</h1>
 
 					<div className="menu clearfix">
-						<Nav navbar>
-							<NavItem active={BrowserStore.getCurrentPath() === '/home'}
-									 eventKey={1}
-									 href="#"
-									 onClick={this._onClickLink}
-									 data-destination="/home"><span className="fa fa-home" />Home</NavItem>
-							<NavItem active={['/', '/stories'].indexOf(BrowserStore.getCurrentPath()) > -1 }
-									 eventKey={2}
-									 href="#"
-									 onClick={this._onClickLink}
-									 data-destination="/stories"><span className="fa fa-fire" />Hacker News</NavItem>
-						</Nav>
+
+						<ul className="nav navbar-nav">
+							<li className={BrowserStore.getCurrentPath() === '/home' ? 'active' : ''}
+								onClick={this._onClickLink} data-destination="/home">
+								<a href="#"><span
+									className="fa fa-home" />Home
+								</a>
+							</li>
+							<li className={['/', '/stories'].indexOf(BrowserStore.getCurrentPath()) > -1 ? 'active' : ''}
+								href="#" onClick={this._onClickLink} data-destination="/stories">
+								<a href="#">
+									<span
+										className="fa fa-fire" />Hacker News</a>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</header>
