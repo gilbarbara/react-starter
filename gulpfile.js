@@ -45,18 +45,13 @@ function watchifyTask (options) {
 		debug: options.watch,
 		packageCache: {}, // required for watchify
 		fullPaths: options.watch, // required to be true only for watchify
-		transform: options.watch ?
-			[
-				['babelify', { ignore: /bower_components/ }],
-				['livereactload', { global: true }]
-			]
-			: [['babelify', { ignore: /bower_components/ }]],
+		transform: [['babelify', { ignore: /bower_components/ }]],
+		//plugin: isProduction() ? [] : [lrload],    // no additional configuration is needed
 		extensions: ['.jsx']
 	});
 
 	if (options.watch) {
 		bundler = watchify(bundler);
-		lrload.monitor(config.dest() + '/scripts/app.js', { displayNotification: true });
 	}
 
 	tap = function () {
@@ -78,7 +73,6 @@ function watchifyTask (options) {
 			.pipe(source('app.js'))
 			.pipe($.if(!options.watch, $.streamify($.uglify())))
 			.pipe(gulp.dest(config.dest() + '/scripts'))
-			.pipe($.if(options.watch, lrload.gulpnotify()))
 			.pipe($.tap(tap));
 	};
 
@@ -178,10 +172,10 @@ gulp.task('extras', function () {
 		}));
 
 	files = gulp.src([
-		'app/*.*',
-		'!app/*.html',
-		'node_modules/apache-server-configs/dist/.htaccess'
-	], { dot: true })
+			'app/*.*',
+			'!app/*.html',
+			'node_modules/apache-server-configs/dist/.htaccess'
+		], { dot: true })
 		.pipe(gulp.dest(config.dest()))
 		.pipe($.size({
 			title: 'Extras:files'
@@ -206,8 +200,8 @@ gulp.task('assets', function (cb) {
 
 gulp.task('mocha', function () {
 	return gulp.src('app/scripts/**/__tests__/*.js', {
-		read: false
-	})
+			read: false
+		})
 		.pipe($.mocha({
 			reporter: 'nyan'
 		}));

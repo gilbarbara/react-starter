@@ -1,4 +1,4 @@
-var keyMirror = require('react/lib/keyMirror');
+var keyMirror = require('../utils/keyMirror');
 
 var AppConstants = {
 	ActionTypes: keyMirror({

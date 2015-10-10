@@ -1,13 +1,15 @@
-var React       = require('react/addons'),
-	_           = require('lodash'),
-	AppActions  = require('../actions/AppActions'),
-	ActionTypes = require('../constants/AppConstants').ActionTypes,
-	XHR         = require('../constants/AppConstants').XHR,
-	HNStore     = require('../stores/HNStore.js'),
-	Loader      = require('./elements/Loader');
+var React           = require('react'),
+	PureRenderMixin = require('react-addons-pure-render-mixin'),
+	ReactUpdate     = require('react-addons-update'),
+	_               = require('lodash'),
+	AppActions      = require('../actions/AppActions'),
+	ActionTypes     = require('../constants/AppConstants').ActionTypes,
+	XHR             = require('../constants/AppConstants').XHR,
+	HNStore         = require('../stores/HNStore.js'),
+	Loader          = require('./elements/Loader');
 
 var StoriesApp = React.createClass({
-	mixins: [React.addons.PureRenderMixin],
+	mixins: [PureRenderMixin],
 
 	getInitialState () {
 		return {
@@ -53,7 +55,7 @@ var StoriesApp = React.createClass({
 			response = HNStore.fetchStoryResponse();
 
 			if (response.status === XHR.SUCCESS) {
-				state = React.addons.update(this.state, {
+				state = ReactUpdate(this.state, {
 						stories: { $push: [response.data] }
 					}
 				);
@@ -100,12 +102,14 @@ var StoriesApp = React.createClass({
 
 			output.actions = (
 				<div className="app__actions">
-					<a href="#" className="load-more btn btn-primary btn-lg" onClick={this._onClickLoadMore}> Load More</a>
+					<a href="#"
+					   className="load-more btn btn-primary btn-lg"
+					   onClick={this._onClickLoadMore}> Load More</a>
 				</div>
 			);
 		}
 		else {
-			output.html = <Loader/>;
+			output.html = <Loader />;
 		}
 
 		return (

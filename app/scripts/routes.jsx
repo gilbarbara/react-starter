@@ -1,4 +1,4 @@
-var React    = require('react/addons'),
+var React    = require('react'),
 	Router   = require('react-router'),
 	App      = require('./components/App'),
 	Home     = require('./components/Home'),
@@ -6,14 +6,14 @@ var React    = require('react/addons'),
 	Info     = require('./components/Info'),
 	NotFound = require('./components/NotFound');
 
-var { Route, DefaultRoute, NotFoundRoute } = Router;
+var { Route, IndexRoute } = Router;
 
 module.exports = (
-	<Route path="/" handler={App}>
-		<Route name="home" handler={Home}/>
-		<Route name="info" handler={Info}/>
-		<Route name="stories" handler={Stories}/>
-		<DefaultRoute handler={Stories}/>
-		<NotFoundRoute handler={NotFound}/>
+	<Route path="/" component={App}>
+		<IndexRoute component={Stories} />
+		<Route name="home" component={Home} />
+		<Route name="info" component={Info} />
+		<Route name="stories" component={Stories} />
+		<Route path="*" component={NotFound} />
 	</Route>
 );

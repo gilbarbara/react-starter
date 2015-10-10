@@ -10,7 +10,6 @@
 	"objectLiteralComputedProperties": true,
 	"objectLiteralShorthandMethods": true,
 	"objectLiteralShorthandProperties": true,
-	"restParams": true,
 	"spread": true,
 	"templateStrings": true
   },
@@ -23,9 +22,7 @@
   },
   "globals": {
 	"$": true,
-	"d3": true,
-	"Modernizr": false,
-	"module": false
+	"Modernizr": false
   },
   "plugins": [
 	"react"
@@ -54,7 +51,7 @@
 	"no-sparse-arrays": 2,
 	"no-unreachable": 2,
 	"valid-jsdoc": [
-	  2,
+	  1,
 	  {
 		"prefer": {
 		  "return": "returns"
@@ -103,6 +100,7 @@
 	"no-sequences": 2,
 	"no-throw-literal": 2,
 	"no-unused-expressions": 1,
+	"no-useless-concat": 1,
 	"no-void": 2,
 	"no-warning-comments": 0,
 	"no-with": 1,
@@ -180,6 +178,7 @@
 	"space-after-keywords": 1,
 	"space-before-blocks": 1,
 	"space-before-function-paren": 1,
+	"space-before-keywords": 1,
 	"space-infix-ops": 1,
 	"space-return-throw-case": 1,
 	"space-unary-ops": 1,
@@ -206,12 +205,14 @@
 	"prefer-spread": 1,
 	"require-yield": 1,
 	// React
-	"react/jsx-boolean-value": 1,
+	"jsx-quotes": 1,
+	"react/jsx-boolean-value": [0, "always"],
+	"react/jsx-closing-bracket-location": [1, "after-props"],
 	"react/jsx-curly-spacing": [1, "never"],
+	"react/jsx-indent-props": 1,
 	"react/jsx-max-props-per-line": [1, { "maximum": 4 }],
 	"react/jsx-no-duplicate-props": 1,
 	"react/jsx-no-undef": 1,
-	"react/jsx-quotes": [1, "double"],
 	"react/jsx-sort-prop-types": 1,
 	"react/jsx-sort-props": 0,
 	"react/jsx-uses-react": 1,

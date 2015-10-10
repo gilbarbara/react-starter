@@ -1,16 +1,17 @@
-var React        = require('react/addons'),
-	Bootstrap    = require('react-bootstrap'),
-	AppActions   = require('../../actions/AppActions'),
-	BrowserStore = require('../../stores/BrowserStore'),
-	NPMPackage   = require('../../../../package.json');
+var React           = require('react'),
+	PureRenderMixin = require('react-addons-pure-render-mixin'),
+	Bootstrap       = require('react-bootstrap'),
+	AppActions      = require('../../actions/AppActions'),
+	BrowserStore    = require('../../stores/BrowserStore'),
+	NPMPackage      = require('../../../../package.json');
 
 var { Nav, NavItem } = Bootstrap;
 
 var Header = React.createClass({
-	mixins: [React.addons.PureRenderMixin],
+	mixins: [PureRenderMixin],
 
 	contextTypes: {
-		router: React.PropTypes.func
+		location: React.PropTypes.object
 	},
 
 	getInitialState () {
@@ -20,7 +21,7 @@ var Header = React.createClass({
 	},
 
 	componentWillMount () {
-		BrowserStore.setCurrentPath(this.context.router.getCurrentPath());
+		BrowserStore.setCurrentPath(this.context.location.path_name);
 	},
 
 	_onClickLink (e) {
@@ -40,9 +41,16 @@ var Header = React.createClass({
 
 					<div className="menu clearfix">
 						<Nav navbar>
-							<NavItem active={BrowserStore.getCurrentPath() === '/home'} eventKey={1} href="#" onClick={this._onClickLink} data-destination="/home"><span className="fa fa-home"/>Home</NavItem>
-							<NavItem active={['/', '/stories'].indexOf(BrowserStore.getCurrentPath()) > -1 } eventKey={2} href="#" onClick={this._onClickLink}
-									 data-destination="/stories"><span className="fa fa-fire"/>Hacker News</NavItem>
+							<NavItem active={BrowserStore.getCurrentPath() === '/home'}
+									 eventKey={1}
+									 href="#"
+									 onClick={this._onClickLink}
+									 data-destination="/home"><span className="fa fa-home" />Home</NavItem>
+							<NavItem active={['/', '/stories'].indexOf(BrowserStore.getCurrentPath()) > -1 }
+									 eventKey={2}
+									 href="#"
+									 onClick={this._onClickLink}
+									 data-destination="/stories"><span className="fa fa-fire" />Hacker News</NavItem>
 						</Nav>
 					</div>
 				</div>

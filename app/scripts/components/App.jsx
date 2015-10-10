@@ -1,26 +1,31 @@
-var React  = require('react'),
-	Router = require('react-router'),
-	Header = require('./elements/Header'),
-	Footer = require('./elements/Footer');
+var React    = require('react'),
+	ReactDOM = require('react-dom'),
+	Router   = require('react-router'),
+	Header   = require('./elements/Header'),
+	Footer   = require('./elements/Footer');
 
 var RouteHandler = Router.RouteHandler;
 
 var App = React.createClass({
 
 	contextTypes: {
-		router: React.PropTypes.func
+		location: React.PropTypes.object
+	},
+
+	propTypes: {
+		children: React.PropTypes.object.isRequired
 	},
 
 	render () {
 		return (
 			<div className="app">
-				<Header/>
+				<Header />
 				<main className="app__content">
 					<div className="app__container">
-						<RouteHandler/>
+						{this.props.children}
 					</div>
 				</main>
-				<Footer/>
+				<Footer />
 			</div>
 		);
 	}
