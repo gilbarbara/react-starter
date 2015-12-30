@@ -1,20 +1,22 @@
 /*eslint no-var:0, prefer-arrow-callback:0, object-shorthand:0 */
-var gulp                  = require('gulp'),
-	$                     = require('gulp-load-plugins')(),
-	babelRegister         = require('babel-register'),
-	browserify            = require('browserify'),
-	browserSync           = require('browser-sync').create(),
-	buffer                = require('vinyl-buffer'),
-	del                   = require('del'),
-	exec                  = require('child_process').exec,
-	historyApiFallback    = require('connect-history-api-fallback'),
+var gulp               = require('gulp'),
+	$                  = require('gulp-load-plugins')(),
+	babelRegister      = require('babel-register'),
+	browserify         = require('browserify'),
+	browserSync        = require('browser-sync').create(),
+	buffer             = require('vinyl-buffer'),
+	del                = require('del'),
+	exec               = require('child_process').exec,
+	historyApiFallback = require('connect-history-api-fallback'),
 	//lrload                = require('livereactload'),
-	merge                 = require('merge-stream'),
-	path                  = require('path'),
-	runSequence           = require('run-sequence'),
-	source                = require('vinyl-source-stream'),
-	watchify              = require('watchify'),
-	AUTOPREFIXER_BROWSERS = [
+	merge              = require('merge-stream'),
+	path               = require('path'),
+	runSequence        = require('run-sequence'),
+	source             = require('vinyl-source-stream'),
+	vinylPaths         = require('vinyl-paths'),
+	watchify           = require('watchify');
+
+var AUTOPREFIXER_BROWSERS = [
 		'ie >= 9',
 		'ie_mob >= 10',
 		'ff >= 30',
@@ -24,13 +26,12 @@ var gulp                  = require('gulp'),
 		'ios >= 7',
 		'android >= 4.4',
 		'bb >= 10'
-	];
-
-var middleware = historyApiFallback({});
-
-var isProduction = function () {
-	return process.env.NODE_ENV === 'production';
-};
+	],
+	isProduction          = function () {
+		return process.env.NODE_ENV === 'production';
+	},
+	middleware            = historyApiFallback({}),
+	commitMessage;
 
 // Functions
 function watchifyTask (options) {
@@ -219,11 +220,36 @@ gulp.task('docs', function (cb) {
 		});
 });
 
-gulp.task('gh-pages', function () {
-	return gulp.src(['dist/**/*', 'README.md'])
+gulp.task('get-commit', function (cb) {
+	exec('git log -1 --pretty=%s && git log -1 --pretty=%b', function (err, stdout) {
+		var parts = stdout.replace('\n\n', '').split('\n');
+
+		commitMessage = parts[0];
+		if (parts[1]) {
+			commitMessage += ' — ' + parts[1];
+		}
+
+		cb(err);
+	});
+});
+
+gulp.task('gh-pages', ['get-commit'], function () {
+	var clean,
+		push;
+
+	clean = gulp.src('.publish/.DS_Store')
+		.pipe(vinylPaths(del));
+
+	push = gulp.src([
+			'dist/**/*'
+		])
 		.pipe($.ghPages({
+			branch: 'gh-pages',
+			message: commitMessage,
 			force: true
 		}));
+
+	return merge(clean, push);
 });
 
 gulp.task('serve', ['assets', 'scripts'], function () {
