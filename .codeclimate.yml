@@ -10,3 +10,4 @@ ratings:
   - "**.scss"
 exclude_paths:
 - node_modules/**/*
+- bower_modules/**/*

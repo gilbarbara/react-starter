@@ -1,8 +1,11 @@
 import { XHR } from '../constants/AppConstants';
 import Storage from '../utils/Storage';
 
+/**
+ * @module Api
+ * @desc Interface to fetch
+ */
 export default {
-
 	/**
 	 * @param {String} url
 	 * @returns {Promise}

@@ -2,21 +2,40 @@ import { EventEmitter } from 'events';
 
 const change = 'CHANGE';
 
+/**
+ * @class
+ * @desc Add methods to EventEmitter
+ * @exports Store
+ *
+ * @requires EventEmitter
+ */
 class Store extends EventEmitter {
 	constructor (props) {
 		super(props);
 	}
 
+	/**
+	 * Emit an event
+	 * @param {String} action
+     */
 	emitChange (action) {
 		super.emit(change, action);
 	}
 
-	addChangeListener (callback) {
-		super.on(change, callback);
+	/**
+	 * Add an event listener
+	 * @param {Function} cb
+     */
+	addChangeListener (cb) {
+		super.on(change, cb);
 	}
 
-	removeChangeListener (callback) {
-		super.removeListener(change, callback);
+	/**
+	 * Remove the event listener
+	 * @param {Function} cb
+	 */
+	removeChangeListener (cb) {
+		super.removeListener(change, cb);
 	}
 }
 

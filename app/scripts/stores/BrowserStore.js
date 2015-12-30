@@ -12,6 +12,16 @@ const State = StateHelper.init({
 	}
 });
 
+/**
+ * @class
+ * @desc Handle browser changes
+ *
+ * @extends Store
+ * @requires Dispatcher
+ * @requires State
+ * @requires Constants
+ * @requires History
+*/
 class BrowserStore extends Store {
 	constructor () {
 		super();
@@ -21,6 +31,11 @@ class BrowserStore extends Store {
 		State.clear();
 	}
 
+	/**
+	 * Process the dispatched actions
+	 * @method
+	 * @param {Object} payload
+     */
 	process (payload) {
 		let action = payload.action;
 
@@ -47,6 +62,12 @@ class BrowserStore extends Store {
 		}
 	}
 
+	/**
+	 * @method
+	 * @param {String} status
+	 * @param {String} message
+	 * @param {Boolean} withTimeout
+     */
 	setAlertMessage (status, message, withTimeout = true) {
 		let state = State.get();
 		state.alert = {
@@ -57,20 +78,37 @@ class BrowserStore extends Store {
 		State.set(state);
 	}
 
+	/**
+	 * @returns {Object}
+     */
 	getAlertMessage () {
 		return State.get().alert;
 	}
 
+	/**
+	 * Get the pathname
+	 * @returns {String}
+     */
 	getCurrentPath () {
 		return State.get().currentPath;
 	}
 
+	/**
+	 * Seve the pathname
+	 * @param {String} path
+     */
 	setCurrentPath (path) {
 		let state = State.get();
 		state.currentPath = path;
 		State.set(state);
 	}
 
+	/**
+	 * Navigate between routes
+	 * @param {String} destination
+	 * @param {String} params
+	 * @param {String} query
+     */
 	navigateTo (destination, params, query) {
 		let state = State.get();
 		state.currentPath = destination;

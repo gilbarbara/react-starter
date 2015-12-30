@@ -2,10 +2,14 @@ import Dispatcher from '../utils/Dispatcher';
 import HNApi from '../api/HNApi';
 import { ActionTypes } from '../constants/AppConstants';
 
+/**
+ * @module Actions
+ * @desc Flux Actions
+ */
 export default {
 	/**
 	 * Change route path
-	 * @constructor
+	 * @instance
 	 * @param {String} destination - Route's Name
 	 * @param {Object} [params] - Route's Params
 	 * @param {String} [query] - Route's Query
@@ -37,7 +41,7 @@ export default {
 
 	/**
 	 * Fetch Stories' IDs
-	 * @constructor
+	 * @instance
 	 */
 	fetchStories () {
 		HNApi.fetchAll();
@@ -45,7 +49,7 @@ export default {
 
 	/**
 	 * Server response for a stories request
-	 * @constructor
+	 * @instance
 	 * @param {String} status - Request Status ( success, fail )
 	 * @param {Object} data - xhr
 	 */
@@ -59,7 +63,7 @@ export default {
 
 	/**
 	 * Fetch Story
-	 * @constructor
+	 * @instance
 	 * @param {String} id - Story ID
 	 */
 	fetchStory (id) {
@@ -68,7 +72,7 @@ export default {
 
 	/**
 	 * Server response for a story request
-	 * @constructor
+	 * @instance
 	 * @param {String} status - Request Status ( success, fail )
 	 * @param {Object} data - xhr
 	 */

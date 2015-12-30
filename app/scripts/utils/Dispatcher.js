@@ -1,10 +1,21 @@
 import { Dispatcher } from 'flux';
 
-class AppDispatcher extends Dispatcher {
+/**
+ * @class
+ * @desc Create a custom flux dispatcher
+ * @exports Dispatcher
+ *
+ * @requires flux
+ */
+class FluxDispatcher extends Dispatcher {
 	constructor () {
 		super();
 	}
 
+	/**
+	 * @method
+	 * @param {String} action
+	 */
 	handleViewAction (action) {
 		let payload = {
 			source: 'VIEW_ACTION',
@@ -15,4 +26,4 @@ class AppDispatcher extends Dispatcher {
 	}
 }
 
-export default new AppDispatcher();
+export default new FluxDispatcher();

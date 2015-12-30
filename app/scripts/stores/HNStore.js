@@ -11,6 +11,14 @@ const State = StateHelper.init({
 	}
 });
 
+/**
+ * @class
+ * @desc Handle Hacker News data
+ *
+ * @extends Store
+ * @requires Dispatcher
+ * @requires State
+ */
 class HNStore extends Store {
 	constructor () {
 		super();

@@ -1,7 +1,13 @@
 import * as babel from 'babel-core';
 import SandboxedModule from 'sandboxed-module';
 
-const SandboxedEsModule = {
+/**
+ * @module SandboxedES2015
+ * @desc Extends SandboxedModule to transform ES2015 code
+ *
+ * @requires sandboxed-module
+ */
+const SandboxedES2015 = {
 	require: (moduleId, options) => {
 		return SandboxedModule.require(moduleId, Object.assign({
 			sourceTransformers: {
@@ -18,4 +24,4 @@ const SandboxedEsModule = {
 	}
 };
 
-export default SandboxedEsModule;
+export default SandboxedES2015;
