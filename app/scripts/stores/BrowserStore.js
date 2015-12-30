@@ -1,32 +1,42 @@
-var assign        = require('react/lib/Object.assign'),
-	EventEmitter  = require('events').EventEmitter,
-	AppConstants  = require('../constants/AppConstants'),
-	AppDispatcher = require('../dispatcher/AppDispatcher'),
-	Store         = require('../utils/Store'),
-	AppRouter     = require('../utils/Router');
+import { ActionTypes } from '../constants/AppConstants';
+import Dispatcher from '../utils/Dispatcher';
+import Store from '../utils/Store';
+import StateHelper from '../utils/State';
+import history from '../utils/History';
 
-// Internal object
-var BSData = {
-	alert: null
-};
+const State = StateHelper.init({
+	name: 'BrowserState',
+	state: {
+		alert: undefined,
+		currentPath: undefined
+	}
+});
 
-var BrowserStore = assign(new Store(), EventEmitter.prototype, {
-	process: function (payload) {
-		var action = payload.action;
+class BrowserStore extends Store {
+	constructor () {
+		super();
+
+		this.dispatchToken = Dispatcher.register(this.process.bind(this));
+
+		State.clear();
+	}
+
+	process (payload) {
+		let action = payload.action;
 
 		switch (action.type) {
 
-			case AppConstants.ActionTypes.SHOW_ALERT:
+			case ActionTypes.SHOW_ALERT:
 			{
 				this.setAlertMessage(action.status, action.message, action.withTimeout);
-				this.emitChange(AppConstants.ActionTypes.SHOW_ALERT);
+				this.emitChange(ActionTypes.SHOW_ALERT);
 				break;
 			}
 
-			case AppConstants.ActionTypes.NAVIGATE:
+			case ActionTypes.NAVIGATE:
 			{
 				this.navigateTo(action.destination, action.params, action.query);
-				this.emitChange(AppConstants.ActionTypes.NAVIGATE);
+				this.emitChange(ActionTypes.NAVIGATE);
 				break;
 			}
 
@@ -35,42 +45,39 @@ var BrowserStore = assign(new Store(), EventEmitter.prototype, {
 				break;
 			}
 		}
-	},
-
-	setAlertMessage: function (status, message, withTimeout) {
-		BSData.alert = {
-			status: status,
-			message: message,
-			withTimeout: withTimeout
-		};
-	},
-
-	getAlertMessage: function () {
-		return BSData.alert;
-	},
-
-	getCurrentPath: function () {
-		return BSData.currentPath;
-	},
-
-	setCurrentPath: function (path) {
-		BSData.currentPath = path;
-	},
-
-	getParams: function () {
-		return BSData.params;
-	},
-
-	navigateTo: function (destination, params, query) {
-		BSData.currentPath = destination;
-		BSData.params = params;
-
-		var router = AppRouter.getRouter();
-		router.transitionTo(destination, params, query);
 	}
 
-});
+	setAlertMessage (status, message, withTimeout = true) {
+		let state = State.get();
+		state.alert = {
+			status,
+			message,
+			withTimeout
+		};
+		State.set(state);
+	}
 
-BrowserStore.dispatchToken = AppDispatcher.register(BrowserStore.process.bind(BrowserStore));
+	getAlertMessage () {
+		return State.get().alert;
+	}
 
-module.exports = BrowserStore;
+	getCurrentPath () {
+		return State.get().currentPath;
+	}
+
+	setCurrentPath (path) {
+		let state = State.get();
+		state.currentPath = path;
+		State.set(state);
+	}
+
+	navigateTo (destination, params, query) {
+		let state = State.get();
+		state.currentPath = destination;
+		state.params = params;
+
+		history.pushState(null, destination + (params ? '/' + params : ''), query);
+	}
+}
+
+export default new BrowserStore();

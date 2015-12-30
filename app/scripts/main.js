@@ -1,8 +1,10 @@
-var React    = require('react'),
-	ReactDOM = require('react-dom'),
-	Router   = require('react-router').Router,
-	routes   = require('./routes');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Router } from 'react-router';
+import history from './utils/History';
 
-document.addEventListener('DOMContentLoaded', function () {
-	ReactDOM.render(<Router>{routes}</Router>, document.getElementById('react'));
+import routes from './routes';
+
+document.addEventListener('DOMContentLoaded', () => {
+	ReactDOM.render(<Router history={history} routes={routes} />, document.getElementById('react'));
 });

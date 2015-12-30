@@ -1,6 +1,6 @@
 .app__header {
-  @include jagged($brand-red, 12, bottom, border);
-  //  height: $header-height;
+  @include jagged($brand-primary, 12, bottom, border);
+  height: $header-height;
   padding: $grid-gutter-width 0;
   position: relative;
 
@@ -9,7 +9,7 @@
   }
 
   .menu {
-    margin-top: 2rem;
+    margin-top: $grid-gutter-width / 2;
 
     .navbar-nav {
       margin: 0;
@@ -18,7 +18,7 @@
         display: inline-block;
 
         &.active a {
-          color: $brand-red;
+          color: $brand-primary;
           font-weight: bold;
         }
 

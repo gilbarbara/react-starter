@@ -1,17 +1,16 @@
-var React    = require('react'),
-	Router   = require('react-router'),
-	Header   = require('./elements/Header'),
-	Footer   = require('./elements/Footer');
+import React from 'react';
+import Header from './elements/Header';
+import Footer from './elements/Footer';
+import SystemNotifications from './elements/SystemNotifications';
 
-var App = React.createClass({
+class App extends React.Component {
+	constructor (props) {
+		super(props);
+	}
 
-	contextTypes: {
-		location: React.PropTypes.object
-	},
-
-	propTypes: {
+	static propTypes = {
 		children: React.PropTypes.object.isRequired
-	},
+	};
 
 	render () {
 		return (
@@ -23,9 +22,10 @@ var App = React.createClass({
 					</div>
 				</main>
 				<Footer />
+				<SystemNotifications />
 			</div>
 		);
 	}
-});
+}
 
-module.exports = App;
+export default App;

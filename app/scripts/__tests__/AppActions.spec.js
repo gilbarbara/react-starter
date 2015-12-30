@@ -1,60 +1,87 @@
-var chai            = require('chai'),
-	sinon           = require('sinon'),
-	sinonChai       = require('sinon-chai'),
-	SandboxedModule = require('sandboxed-module'),
-	_               = require('lodash');
+import chai from 'chai';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
+import SandboxedModule from '../utils/SandboxedES2015';
 
 chai.should();
 chai.use(sinonChai);
 
 function createFakeAppActionsRequires (options) {
-	var defaultRequires = {
+	let defaultRequires = {
 		'../api/HNApi': sinon.spy(),
-		'../dispatcher/AppDispatcher': {
+		'../utils/Dispatcher': {
 			handleViewAction: sinon.spy()
 		},
-		'../constants/AppConstants': require('../constants/AppConstants'),
-		lodash: require('lodash')
+		'../constants/AppConstants': require('../constants/AppConstants')
 	};
 
-	return _.merge(defaultRequires, options);
+	return Object.assign(defaultRequires, options);
 }
 
-describe('AppActions', function () {
+describe('AppActions', () => {
 
-	describe('goTo', function () {
-        var AppActions, fakeDispatcher, expected;
+	describe('goTo', () => {
+		let AppActions, fakeDispatcher, expected;
 
-        beforeEach(function () {
-            expected = {
-                type: 'NAVIGATE',
-                destination: 'destination',
-                params: 'params',
-                query: 'query'
-            };
+		beforeEach(() => {
+			expected = {
+				type: 'NAVIGATE',
+				destination: 'destination',
+				params: 'params',
+				query: 'query'
+			};
 
-            fakeDispatcher = {
-                handleViewAction: sinon.spy()
-            };
+			fakeDispatcher = {
+				handleViewAction: sinon.spy()
+			};
 
-            AppActions = SandboxedModule.require('../actions/AppActions', {
-                requires: createFakeAppActionsRequires({
-                    '../dispatcher/AppDispatcher': fakeDispatcher
-                })
-            });
+			AppActions = SandboxedModule.require('../actions/AppActions', {
+				requires: createFakeAppActionsRequires({
+					'../utils/Dispatcher': fakeDispatcher
+				})
+			});
+		});
 
-        });
+		it('should call AppDispatcher.handleViewAction with NAVIGATE action', () => {
+			AppActions.goTo('destination', 'params', 'query');
+			fakeDispatcher.handleViewAction.should.be.calledWith(expected);
+		});
+	});
 
-        it('should call AppDispatcher.handleViewAction with NAVIGATE action', function () {
-            AppActions.goTo('destination', 'params', 'query');
-            fakeDispatcher.handleViewAction.should.be.calledWith(expected);
-        });
-    });
+	describe('showBrowserAlert', () => {
+		let Actions, fakeDispatcher, expected;
 
-	describe('fetchStories', function () {
-		var AppActions, fakeDispatcher, HNApi;
+		beforeEach(() => {
+			expected = {
+				type: 'SHOW_ALERT',
+				status: 'info',
+				message: 'message',
+				withTimeout: true
+			};
 
-		beforeEach(function () {
+			fakeDispatcher = {
+				handleViewAction: sinon.spy()
+			};
+
+			Actions = SandboxedModule.require('../actions/AppActions', {
+				requires: createFakeAppActionsRequires({
+					'../utils/Dispatcher': fakeDispatcher
+				})
+			});
+
+		});
+
+		it('should call Dispatcher.handleViewAction with SHOW_ALERT action', () => {
+			Actions.showAlert('info', 'message', true);
+			fakeDispatcher.handleViewAction.should.be.calledWith(expected);
+		});
+
+	});
+
+	describe('fetchStories', () => {
+		let AppActions, fakeDispatcher, HNApi;
+
+		beforeEach(() => {
 
 			fakeDispatcher = {
 				handleViewAction: sinon.spy()
@@ -67,22 +94,21 @@ describe('AppActions', function () {
 			AppActions = SandboxedModule.require('../actions/AppActions', {
 				requires: createFakeAppActionsRequires({
 					'../api/HNApi': HNApi,
-					'../dispatcher/AppDispatcher': fakeDispatcher
+					'../utils/Dispatcher': fakeDispatcher
 				})
 			});
-
 		});
 
-		it('should call HNApi.fetchAll', function () {
+		it('should call HNApi.fetchAll', () => {
 			AppActions.fetchStories();
 			HNApi.fetchAll.should.be.called;
 		});
 	});
 
-	describe('storiesLoaded', function () {
-		var AppActions, fakeDispatcher, expected;
+	describe('storiesLoaded', () => {
+		let AppActions, fakeDispatcher, expected;
 
-		beforeEach(function () {
+		beforeEach(() => {
 			expected = {
 				type: 'FETCH_STORIES',
 				status: 'status',
@@ -95,23 +121,23 @@ describe('AppActions', function () {
 
 			AppActions = SandboxedModule.require('../actions/AppActions', {
 				requires: createFakeAppActionsRequires({
-					'../dispatcher/AppDispatcher': fakeDispatcher
+					'../utils/Dispatcher': fakeDispatcher
 				})
 			});
 
 		});
 
-		it('should call AppDispatcher.handleViewAction with FETCH_STORIES action', function () {
+		it('should call AppDispatcher.handleViewAction with FETCH_STORIES action', () => {
 			AppActions.storiesLoaded('status', 'data');
 			fakeDispatcher.handleViewAction.should.be.calledWith(expected);
 		});
 
 	});
 
-	describe('fetchStory', function () {
-		var AppActions, fakeDispatcher, HNApi;
+	describe('fetchStory', () => {
+		let AppActions, fakeDispatcher, HNApi;
 
-		beforeEach(function () {
+		beforeEach(() => {
 
 			fakeDispatcher = {
 				handleViewAction: sinon.spy()
@@ -124,22 +150,22 @@ describe('AppActions', function () {
 			AppActions = SandboxedModule.require('../actions/AppActions', {
 				requires: createFakeAppActionsRequires({
 					'../api/HNApi': HNApi,
-					'../dispatcher/AppDispatcher': fakeDispatcher
+					'../utils/Dispatcher': fakeDispatcher
 				})
 			});
 
 		});
 
-		it('should call HNApi.fetchOne', function () {
+		it('should call HNApi.fetchOne', () => {
 			AppActions.fetchStory();
 			HNApi.fetchOne.should.be.called;
 		});
 	});
 
-	describe('storyLoaded', function () {
-		var AppActions, fakeDispatcher, expected;
+	describe('storyLoaded', () => {
+		let AppActions, fakeDispatcher, expected;
 
-		beforeEach(function () {
+		beforeEach(() => {
 			expected = {
 				type: 'FETCH_STORY',
 				status: 'status',
@@ -152,16 +178,15 @@ describe('AppActions', function () {
 
 			AppActions = SandboxedModule.require('../actions/AppActions', {
 				requires: createFakeAppActionsRequires({
-					'../dispatcher/AppDispatcher': fakeDispatcher
+					'../utils/Dispatcher': fakeDispatcher
 				})
 			});
 
 		});
 
-		it('should call AppDispatcher.handleViewAction with FETCH_STORY action', function () {
+		it('should call AppDispatcher.handleViewAction with FETCH_STORY action', () => {
 			AppActions.storyLoaded('status', 'data');
 			fakeDispatcher.handleViewAction.should.be.calledWith(expected);
 		});
-
 	});
 });

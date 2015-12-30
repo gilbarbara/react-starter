@@ -1,54 +1,21 @@
-var $   = require('jquery'),
-	XHR = require('../constants/AppConstants').XHR;
+import Actions from '../actions/AppActions';
+import Api from '../utils/Api';
+import { XHR } from '../constants/AppConstants';
 
-var HNApi = {
+export default {
 	url: 'https://hacker-news.firebaseio.com/v0',
 
-	fetchAll: function () {
-		var AppActions = require('../actions/AppActions');
-
-		$.ajax({
-			url: this.url + '/topstories.json?print=pretty',
-			method: 'GET',
-			dataType: 'json',
-			complete: function (xhr) {
-				if (xhr.status === 0) {
-					AppActions.storiesLoaded(XHR.FAIL, {
-						error: 'server error - status 0'
-					});
-				}
-				else if (xhr.status < 299) {
-					AppActions.storiesLoaded(XHR.SUCCESS, xhr.responseJSON);
-				}
-				else {
-					AppActions.storiesLoaded(XHR.FAIL, xhr.responseJSON);
-				}
-			}
-		});
+	fetchAll () {
+		Api.request(this.url + '/topstories.json?print=pretty')
+			.then(response => {
+				Actions.storiesLoaded(XHR.SUCCESS, response.data);
+			});
 	},
 
-	fetchOne: function (id) {
-		var AppActions = require('../actions/AppActions');
-
-		$.ajax({
-			url: this.url + '/item/' + id + '.json?print=pretty',
-			method: 'GET',
-			dataType: 'json',
-			complete: function (xhr) {
-				if (xhr.status === 0) {
-					AppActions.storyLoaded(XHR.FAIL, {
-						error: 'server error - status 0'
-					});
-				}
-				else if (xhr.status < 299) {
-					AppActions.storyLoaded(XHR.SUCCESS, xhr.responseJSON);
-				}
-				else {
-					AppActions.storyLoaded(XHR.FAIL, xhr.responseJSON);
-				}
-			}
-		});
+	fetchOne (id) {
+		Api.request(this.url + '/item/' + id + '.json?print=pretty')
+			.then(response => {
+				Actions.storyLoaded(XHR.SUCCESS, response.data);
+			});
 	}
 };
-
-module.exports = HNApi;

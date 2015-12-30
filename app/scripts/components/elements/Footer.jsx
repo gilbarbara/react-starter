@@ -1,8 +1,13 @@
-var React           = require('react'),
-	PureRenderMixin = require('react-addons-pure-render-mixin');
+import React from 'react';
+import shouldPureComponentUpdate from 'react-pure-render/function';
 
-var Footer = React.createClass({
-	mixins: [PureRenderMixin],
+class Footer extends React.Component {
+
+	constructor (props) {
+		super(props);
+	}
+
+	shouldComponentUpdate = shouldPureComponentUpdate;
 
 	render () {
 		return (
@@ -34,6 +39,6 @@ var Footer = React.createClass({
 		);
 	}
 
-});
+}
 
-module.exports = Footer;
+export default Footer;

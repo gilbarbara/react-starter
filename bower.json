@@ -2,7 +2,7 @@
   "name": "react-starter",
   "dependencies": {
     "bootstrap": "^4",
-    "modernizr": "^2.8",
-    "fontawesome": "~4.4.0"
+    "fontawesome": "~4.4",
+	"sass-mediaqueries": "^1.6"
   }
 }

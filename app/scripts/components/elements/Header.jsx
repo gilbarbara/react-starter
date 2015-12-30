@@ -1,35 +1,28 @@
-var React           = require('react'),
-	PureRenderMixin = require('react-addons-pure-render-mixin'),
-	AppActions      = require('../../actions/AppActions'),
-	BrowserStore    = require('../../stores/BrowserStore'),
-	NPMPackage      = require('../../../../package.json');
+import React from 'react';
+import shouldComponentUpdate  from '../../utils/PureRender';
+import { autobind } from 'core-decorators';
 
+import Actions from '../../actions/AppActions';
+import BrowserStore from '../../stores/BrowserStore';
+import NPMPackage from '../../../../package.json';
 
-var Header = React.createClass({
-	mixins: [PureRenderMixin],
+class Header extends React.Component {
 
-	contextTypes: {
+	constructor (props) {
+		super(props);
+	}
+
+	static contextTypes = {
 		location: React.PropTypes.object
-	},
+	};
 
-	getInitialState () {
-		return {
-			currentPath: null
-		};
-	},
+	shouldComponentUpdate = shouldComponentUpdate;
 
-	componentWillMount () {
-		BrowserStore.setCurrentPath(this.context.location.path_name);
-	},
-
-	_onClickLink (e) {
+	@autobind
+	onClickLink (e) {
 		e.preventDefault();
-		AppActions.goTo(e.currentTarget.dataset.destination);
-
-		this.setState({
-			currentPath: e.currentTarget.dataset.destination
-		});
-	},
+		Actions.goTo(e.currentTarget.dataset.destination);
+	}
 
 	render () {
 		return (
@@ -40,14 +33,14 @@ var Header = React.createClass({
 					<div className="menu clearfix">
 
 						<ul className="nav navbar-nav">
-							<li className={BrowserStore.getCurrentPath() === '/home' ? 'active' : ''}
-								onClick={this._onClickLink} data-destination="/home">
+							<li className={this.context.location.pathname === '/home' ? 'active' : ''}
+								onClick={this.onClickLink} data-destination="/home">
 								<a href="#"><span
 									className="fa fa-home" />Home
 								</a>
 							</li>
-							<li className={['/', '/stories'].indexOf(BrowserStore.getCurrentPath()) > -1 ? 'active' : ''}
-								href="#" onClick={this._onClickLink} data-destination="/stories">
+							<li className={['/', '/stories'].indexOf(this.context.location.pathname) > -1 ? 'active' : ''}
+								href="#" onClick={this.onClickLink} data-destination="/stories">
 								<a href="#">
 									<span
 										className="fa fa-fire" />Hacker News</a>
@@ -59,6 +52,6 @@ var Header = React.createClass({
 		);
 	}
 
-});
+}
 
-module.exports = Header;
+export default Header;

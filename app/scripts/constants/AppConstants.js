@@ -1,16 +1,15 @@
-var keyMirror = require('../utils/keyMirror');
+import keyMirror from 'fbjs/lib/keyMirror';
 
-var AppConstants = {
-	ActionTypes: keyMirror({
-		FETCH_STORIES: undefined,
-		FETCH_STORY: undefined,
-		NAVIGATE: undefined,
-		SHOW_ALERT: undefined
-	}),
-	XHR: keyMirror({
-		SUCCESS: undefined,
-		FAIL: undefined
-	})
-};
+export const ActionTypes = keyMirror({
+	FETCH_STORIES: undefined,
+	FETCH_STORY: undefined,
+	NAVIGATE: undefined,
+	SHOW_ALERT: undefined
+});
 
-module.exports = AppConstants;
+export const XHR = keyMirror({
+	SUCCESS: undefined,
+	FAIL: undefined
+});
+
+export default { ActionTypes, XHR };

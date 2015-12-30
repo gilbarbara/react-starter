@@ -1,29 +1,41 @@
-var assign         = require('react/lib/Object.assign'),
-	EventEmitter  = require('events').EventEmitter,
-	AppConstants   = require('../constants/AppConstants'),
-	AppDispatcher = require('../dispatcher/AppDispatcher'),
-	Store         = require('../utils/Store');
+import { ActionTypes } from '../constants/AppConstants';
+import Dispatcher from '../utils/Dispatcher';
+import Store from '../utils/Store';
+import StateHelper from '../utils/State';
 
-// Internal object
-var HNData = {};
+const State = StateHelper.init({
+	name: 'HMState',
+	state: {
+		storiesIds: undefined,
+		story: undefined
+	}
+});
 
-var HNStore = assign(new Store(), EventEmitter.prototype, {
-	process: function (payload) {
-		var action = payload.action;
+class HNStore extends Store {
+	constructor () {
+		super();
+
+		this.dispatchToken = Dispatcher.register(this.process.bind(this));
+
+		State.clear();
+	}
+
+	process (payload) {
+		let action = payload.action;
 
 		switch (action.type) {
 
-			case AppConstants.ActionTypes.FETCH_STORIES:
+			case ActionTypes.FETCH_STORIES:
 			{
 				this.handleFetchStories(action);
-				this.emitChange(AppConstants.ActionTypes.FETCH_STORIES);
+				this.emitChange(ActionTypes.FETCH_STORIES);
 				break;
 			}
 
-			case AppConstants.ActionTypes.FETCH_STORY:
+			case ActionTypes.FETCH_STORY:
 			{
 				this.handleFetchStory(action);
-				this.emitChange(AppConstants.ActionTypes.FETCH_STORY);
+				this.emitChange(ActionTypes.FETCH_STORY);
 				break;
 			}
 
@@ -32,26 +44,27 @@ var HNStore = assign(new Store(), EventEmitter.prototype, {
 				break;
 			}
 		}
-
-	},
-
-	handleFetchStories: function (action) {
-		HNData.storiesIds = action;
-	},
-
-	fetchStoriesResponse: function () {
-		return HNData.storiesIds;
-	},
-
-	handleFetchStory: function (action) {
-		HNData.story = action;
-	},
-
-	fetchStoryResponse: function () {
-		return HNData.story;
 	}
 
-});
+	handleFetchStories (action) {
+		let state = State.get();
+		state.storiesIds = action;
+		State.set(state);
+	}
 
-HNStore.dispatchToken = AppDispatcher.register(HNStore.process.bind(HNStore));
-module.exports = HNStore;
+	fetchStoriesResponse () {
+		return State.get().storiesIds;
+	}
+
+	handleFetchStory (action) {
+		let state = State.get();
+		state.story = action;
+		State.set(state);
+	}
+
+	fetchStoryResponse () {
+		return State.get().story;
+	}
+}
+
+export default new HNStore();

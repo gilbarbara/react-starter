@@ -1,7 +1,9 @@
-var NPMPackage = require('../../package.json');
-module.exports = {
+import NPMPackage from '../../package.json';
+
+export default {
 	items: [
 		{ react: NPMPackage.dependencies.react.replace(/~|\^/, '') },
-		{ 'react-router': NPMPackage.dependencies['react-router'].replace(/~|\^/, '') }
+		{ 'react-router': NPMPackage.dependencies['react-router'].replace(/~|\^/, '') },
+		{ flux: NPMPackage.dependencies.flux.replace(/~|\^/, '') }
 	]
 };

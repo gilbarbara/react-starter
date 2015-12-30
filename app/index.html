@@ -5,12 +5,14 @@
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
 	<title>React-Starter</title>
-	<link href='//fonts.googleapis.com/css?family=Lato:100,400,700,400italic|Bevan' rel='stylesheet' type='text/css'>
 	<!-- build:css styles/main.css -->
 	<link rel="stylesheet" href="styles/main.css">
 	<!-- endbuild -->
-	<!-- build:js scripts/vendor/modernizr.js -->
-	<script src="../bower_components/modernizr/modernizr.js"></script>
+
+	<!-- build:js({.tmp,.}) /scripts/vendor/modernizr.js -->
+	<script src="/scripts/modernizr.js"></script>
+	<script src="/node_modules/mobile-detect/mobile-detect.js"></script>
+	<script src="/node_modules/mobile-detect/mobile-detect-modernizr.js"></script>
 	<!-- endbuild -->
 </head>
 <body>

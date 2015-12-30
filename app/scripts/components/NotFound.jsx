@@ -1,6 +1,12 @@
-var React = require('react');
+import React from 'react';
+import shouldPureComponentUpdate from 'react-pure-render/function';
 
-var NotFound = React.createClass({
+class NotFound extends React.Component {
+	constructor (props) {
+		super(props);
+	}
+
+	shouldComponentUpdate = shouldPureComponentUpdate;
 
 	render () {
 		return (
@@ -9,6 +15,6 @@ var NotFound = React.createClass({
 			</div>
 		);
 	}
-});
+}
 
-module.exports = NotFound;
+export default NotFound;

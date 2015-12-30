@@ -1,19 +1,17 @@
-var React    = require('react'),
-	Router   = require('react-router'),
-	App      = require('./components/App'),
-	Home     = require('./components/Home'),
-	Stories  = require('./components/Stories'),
-	Info     = require('./components/Info'),
-	NotFound = require('./components/NotFound');
+import React from 'react';
+import { Route, IndexRoute } from 'react-router';
 
-var { Route, IndexRoute } = Router;
+import App from './components/App';
+import Home from './components/Home';
+import Stories from './components/Stories';
+import Info from './components/Info';
+import NotFound from './components/NotFound';
 
-module.exports = (
+export default (
 	<Route path="/" component={App}>
 		<IndexRoute component={Stories} />
-		<Route name="home" component={Home} />
-		<Route name="info" component={Info} />
-		<Route name="stories" component={Stories} />
+		<Route path="home" component={Home} />
+		<Route path="stories" component={Stories} />
 		<Route path="*" component={NotFound} />
 	</Route>
 );

@@ -1,18 +1,18 @@
-var React           = require('react'),
-	PureRenderMixin = require('react-addons-pure-render-mixin'),
-	reactUpdate     = require('react-addons-update'),
-	_               = require('lodash'),
-	AppActions      = require('../actions/AppActions'),
-	ActionTypes     = require('../constants/AppConstants').ActionTypes,
-	XHR             = require('../constants/AppConstants').XHR,
-	HNStore         = require('../stores/HNStore.js'),
-	Loader          = require('./elements/Loader');
+import React from 'react';
+import shouldPureComponentUpdate from 'react-pure-render/function';
+import reactUpdate from 'react-addons-update';
+import { autobind } from 'core-decorators';
 
-var StoriesApp = React.createClass({
-	mixins: [PureRenderMixin],
+import AppActions from '../actions/AppActions';
+import { ActionTypes, XHR } from '../constants/AppConstants';
+import HNStore from '../stores/HNStore.js';
+import Loader from './elements/Loader';
 
-	getInitialState () {
-		return {
+class Stories extends React.Component {
+	constructor (props) {
+		super(props);
+
+		this.state = {
 			ready: false,
 			error: undefined,
 			start: undefined,
@@ -20,25 +20,28 @@ var StoriesApp = React.createClass({
 			storiesIds: [],
 			stories: []
 		};
-	},
+	}
+
+	shouldComponentUpdate = shouldPureComponentUpdate;
 
 	componentDidMount () {
-		HNStore.addChangeListener(this._handleHNChange);
+		HNStore.addChangeListener(this.handleHNChange);
 		AppActions.fetchStories();
-	},
-
-	componentWillUnmount () {
-		HNStore.removeChangeListener(this._handleHNChange);
-	},
+	}
 
 	componentDidUpdate (prevProps, prevState) {
 		if (prevState.start !== this.state.start) {
 			this.loadStories();
 		}
-	},
+	}
 
-	_handleHNChange (action) {
-		var response,
+	componentWillUnmount () {
+		HNStore.removeChangeListener(this.handleHNChange);
+	}
+
+	@autobind
+	handleHNChange (action) {
+		let response,
 			state = {};
 
 		if (action === ActionTypes.FETCH_STORIES) {
@@ -72,23 +75,25 @@ var StoriesApp = React.createClass({
 				});
 			}
 		});
-	},
+	}
 
 	loadStories () {
 		this.state.storiesIds.slice(this.state.start, (this.state.start + this.state.max)).forEach((d) => {
 			AppActions.fetchStory(d);
 		});
-	},
+	}
 
-	_onClickLoadMore (e) {
+	@autobind
+	onClickLoadMore (e) {
 		e.preventDefault();
+
 		this.setState({
 			start: this.state.start + this.state.max
 		});
-	},
+	}
 
 	render () {
-		var output = {};
+		let output = {};
 
 		if (this.state.ready) {
 			output.html = this.state.stories.map((d) => {
@@ -102,8 +107,7 @@ var StoriesApp = React.createClass({
 
 			output.actions = (
 				<div className="app__actions">
-					<a href="#" className="load-more btn btn-primary btn-lg"
-					   onClick={this._onClickLoadMore}> Load More</a>
+					<a href="#" className="load-more btn btn-primary btn-lg" onClick={this.onClickLoadMore}> Load More</a>
 				</div>
 			);
 		}
@@ -120,7 +124,6 @@ var StoriesApp = React.createClass({
 			</div>
 		);
 	}
+}
 
-});
-
-module.exports = StoriesApp;
+export default Stories;

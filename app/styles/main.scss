@@ -1,15 +1,25 @@
-// Base
-@import 'base/variables';
-@import 'base/bootstrap';
-@import 'base/utils';
-@import 'fontawesome/scss/font-awesome';
+// *** Fonts
+@import url('//fonts.googleapis.com/css?family=Lato:100,400,700,400italic|Bevan');
 
-// Elements
+// *** Variable
+@import 'base/variables';
+
+// *** Libs
+@import 'fontawesome/scss/font-awesome';
+@import 'sass-mediaqueries/media-queries';
+
+// *** Base
+@import 'base/utils';
+@import 'base/bootstrap';
+@import 'base/bootstrap-theme';
+
+// *** Elements
 @import 'elements/loader';
 @import 'elements/header';
 @import 'elements/footer';
+@import 'elements/system-notifications';
 
-// Components
+// *** Components
 @import 'components/app';
 @import 'components/home';
 @import 'components/stories';
@@ -19,6 +29,12 @@
   color: #000;
   margin: 0.2em 0;
   padding: 0.2em 0;
+}
+
+html {
+  font-size: 62.5%;
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
@@ -41,5 +57,27 @@ body {
     @include sm {
       font-size: 256px;
     }
+  }
+}
+
+
+@keyframes appear {
+  0% {
+    transform: scale(0);
+
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }

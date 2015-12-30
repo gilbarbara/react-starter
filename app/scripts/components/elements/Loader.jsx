@@ -1,6 +1,13 @@
-var React = require('react');
+import React from 'react';
+import shouldPureComponentUpdate from 'react-pure-render/function';
 
-var Loader = React.createClass({
+class Loader extends React.Component {
+	constructor (props) {
+		super(props);
+	}
+
+	shouldComponentUpdate = shouldPureComponentUpdate;
+
 	render () {
 		return (
 			<div className="loader">
@@ -10,12 +17,11 @@ var Loader = React.createClass({
 							cy="50"
 							r="20"
 							fill="none"
-							strokeWidth="2"
-						/>
+							strokeWidth="2" />
 				</svg>
 			</div>
 		);
 	}
-});
+}
 
-module.exports = Loader;
+export default Loader;

@@ -1,16 +1,23 @@
-var Store = function () {};
-var change = 'CHANGE';
+import { EventEmitter } from 'events';
 
-Store.prototype.emitChange = function (action) {
-	this.emit(change, action);
-};
+const change = 'CHANGE';
 
-Store.prototype.addChangeListener = function (callback) {
-	this.on(change, callback);
-};
+class Store extends EventEmitter {
+	constructor (props) {
+		super(props);
+	}
 
-Store.prototype.removeChangeListener = function (callback) {
-	this.removeListener(change, callback);
-};
+	emitChange (action) {
+		super.emit(change, action);
+	}
 
-module.exports = Store;
+	addChangeListener (callback) {
+		super.on(change, callback);
+	}
+
+	removeChangeListener (callback) {
+		super.removeListener(change, callback);
+	}
+}
+
+export default Store;

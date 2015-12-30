@@ -1,21 +1,33 @@
-var chai            = require('chai'),
-	sinon           = require('sinon'),
-	sinonChai       = require('sinon-chai'),
-	SandboxedModule = require('sandboxed-module'),
-	expect          = chai.expect;
+import chai from 'chai';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
+import SandboxedModule from '../utils/SandboxedES2015';
 
+let expect = chai.expect;
 chai.should();
 chai.use(sinonChai);
 
-describe('HNStore', function () {
+describe('HNStore', () => {
+	let fakeStorage = {
+		setItem (name, value) {
+			this[name] = value;
+		},
+		getItem (name) {
+			return this[name];
+		},
+		removeItem () {
+			delete this[name];
+		},
+		clearAll: sinon.spy()
+	};
 
-	describe('process', function () {
-		var fakePayload;
+	describe('process', () => {
+		let fakePayload;
 
-		describe('Given a type "FETCH_STORIES" ', function () {
-			var HNStore;
+		describe('Given a type "FETCH_STORIES" ', () => {
+			let HNStore;
 
-			before(function () {
+			before(() => {
 				fakePayload = {
 					action: {
 						type: 'FETCH_STORIES',
@@ -25,10 +37,15 @@ describe('HNStore', function () {
 
 				HNStore = SandboxedModule.require('../stores/HNStore', {
 					requires: {
-						'../utils/Store': function () {
-							this.emitChange = function () {
+						'../utils/Store' () {
+							this.emitChange = () => {
 							};
 						},
+						'../utils/State': SandboxedModule.require('../utils/State', {
+							requires: {
+								'../utils/Storage': fakeStorage
+							}
+						}),
 						'../constants/AppConstants': require('../constants/AppConstants')
 					}
 				});
@@ -36,11 +53,11 @@ describe('HNStore', function () {
 				sinon.stub(HNStore, 'emitChange');
 			});
 
-			after(function () {
+			after(() => {
 				HNStore.emitChange.restore();
 			});
 
-			it('should create a fetchStories props with action data in state', function () {
+			it('should create a fetchStories props with action data in state', () => {
 				HNStore.process(fakePayload);
 				expect(HNStore.fetchStoriesResponse()).to.be.deep.equal({
 					type: 'FETCH_STORIES',
@@ -51,10 +68,10 @@ describe('HNStore', function () {
 
 		});
 
-		describe('Given a type "FETCH_STORY" ', function () {
-			var HNStore;
+		describe('Given a type "FETCH_STORY" ', () => {
+			let HNStore;
 
-			before(function () {
+			before(() => {
 				fakePayload = {
 					action: {
 						type: 'FETCH_STORY',
@@ -64,10 +81,15 @@ describe('HNStore', function () {
 
 				HNStore = SandboxedModule.require('../stores/HNStore', {
 					requires: {
-						'../utils/Store': function () {
-							this.emitChange = function () {
+						'../utils/Store' () {
+							this.emitChange = () => {
 							};
 						},
+						'../utils/State': SandboxedModule.require('../utils/State', {
+							requires: {
+								'../utils/Storage': fakeStorage
+							}
+						}),
 						'../constants/AppConstants': require('../constants/AppConstants')
 					}
 				});
@@ -75,11 +97,11 @@ describe('HNStore', function () {
 				sinon.stub(HNStore, 'emitChange');
 			});
 
-			after(function () {
+			after(() => {
 				HNStore.emitChange.restore();
 			});
 
-			it('should create a fetchTransactions props with action data in state', function () {
+			it('should create a fetchTransactions props with action data in state', () => {
 				HNStore.process(fakePayload);
 				expect(HNStore.fetchStoryResponse()).to.be.deep.equal({
 					type: 'FETCH_STORY',
@@ -87,8 +109,6 @@ describe('HNStore', function () {
 				});
 				HNStore.emitChange.should.be.called;
 			});
-
 		});
-
 	});
 });
