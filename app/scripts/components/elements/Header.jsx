@@ -1,5 +1,5 @@
 import React from 'react';
-import shouldComponentUpdate  from '../../utils/PureRender';
+import shouldComponentUpdate from '../../utils/PureRender';
 import { autobind } from 'core-decorators';
 
 import Actions from '../../actions/AppActions';

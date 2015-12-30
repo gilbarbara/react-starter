@@ -220,12 +220,7 @@ gulp.task('docs', function (cb) {
 });
 
 gulp.task('gh-pages', function () {
-	var filter = $.filter('**/app.js');
-
 	return gulp.src(['dist/**/*', 'README.md'])
-		.pipe(filter)
-		.pipe($.replace(new RegExp('{path:"/",handler:d}', 'g'), '{path:"/react-starter/",handler:d}'))
-		.pipe(filter.restore())
 		.pipe($.ghPages({
 			force: true
 		}));
