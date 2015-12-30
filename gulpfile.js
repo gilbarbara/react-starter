@@ -38,12 +38,12 @@ function watchifyTask (options) {
 	bundler = browserify({
 		entries: path.join(__dirname, '/app/scripts/main.js'),
 		basedir: __dirname,
-		insertGlobals: options.watch,
+		//insertGlobals: options.watch,
 		cache: {}, // required for watchify
 		//debug: options.watch,
 		packageCache: {}, // required for watchify
 		fullPaths: options.watch,
-		//plugin: options.watch ? [lrload] : [],
+		plugin: options.watch ? [lrload] : [],
 		extensions: ['.jsx']
 	});
 
@@ -70,7 +70,7 @@ function watchifyTask (options) {
 			.pipe(source('app.js'))
 			.pipe(buffer())
 			.pipe(gulp.dest('.tmp/scripts'))
-			.pipe(browserSync.stream())
+			//.pipe(browserSync.stream())
 			.pipe($.tap(tap));
 	};
 
