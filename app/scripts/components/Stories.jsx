@@ -1,7 +1,7 @@
 import React from 'react';
-import shouldPureComponentUpdate from 'react-pure-render/function';
 import reactUpdate from 'react-addons-update';
 import { autobind } from 'core-decorators';
+import shouldComponentUpdate from '../utils/PureRender';
 
 import AppActions from '../actions/AppActions';
 import { ActionTypes, XHR } from '../constants/AppConstants';
@@ -22,7 +22,7 @@ class Stories extends React.Component {
 		};
 	}
 
-	shouldComponentUpdate = shouldPureComponentUpdate;
+	shouldComponentUpdate = shouldComponentUpdate;
 
 	componentDidMount () {
 		HNStore.addChangeListener(this.handleHNChange);

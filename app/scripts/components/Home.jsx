@@ -1,5 +1,5 @@
 import React from 'react';
-import shouldPureComponentUpdate from 'react-pure-render/function';
+import shouldComponentUpdate from '../utils/PureRender';
 import config from '../config';
 import Loader from './elements/Loader';
 
@@ -13,7 +13,7 @@ class Home extends React.Component {
 		};
 	}
 
-	shouldComponentUpdate = shouldPureComponentUpdate;
+	shouldComponentUpdate = shouldComponentUpdate;
 
 	componentDidMount () {
 		setTimeout(() => {

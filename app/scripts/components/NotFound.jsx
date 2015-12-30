@@ -1,12 +1,12 @@
 import React from 'react';
-import shouldPureComponentUpdate from 'react-pure-render/function';
+import shouldComponentUpdate from '../utils/PureRender';
 
 class NotFound extends React.Component {
 	constructor (props) {
 		super(props);
 	}
 
-	shouldComponentUpdate = shouldPureComponentUpdate;
+	shouldComponentUpdate = shouldComponentUpdate;
 
 	render () {
 		return (

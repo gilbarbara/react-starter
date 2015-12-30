@@ -1,5 +1,5 @@
 import React from 'react';
-import shouldPureComponentUpdate from 'react-pure-render/function';
+import shouldComponentUpdate from '../../utils/PureRender';
 import { autobind } from 'core-decorators';
 
 import BrowserStore from '../../stores/BrowserStore';
@@ -19,7 +19,7 @@ class SystemNotifications extends React.Component {
 		this.state = defaultState;
 	}
 
-	shouldComponentUpdate = shouldPureComponentUpdate;
+	shouldComponentUpdate = shouldComponentUpdate;
 
 	componentDidMount () {
 		BrowserStore.addChangeListener(this.handleChange);
