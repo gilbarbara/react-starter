@@ -71,6 +71,7 @@
     "gulp-util": "^3.0",
     "livereactload": "^2.1",
     "merge-stream": "^1.0",
+    "minami": "^1.1.1",
     "react-proxy": "^1.1",
     "run-sequence": "^1.1",
     "sandboxed-module": "^2.0",
